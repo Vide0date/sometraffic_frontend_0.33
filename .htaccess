@@ -1,0 +1,17 @@
+# redirect http to https
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteCond %{HTTP_HOST} ^sometraffic\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.sometraffic\.com$
+RewriteRule ^(.*)$ https://sometraffic.com$1 [R=301,L]
+
+# for dynamic route
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+RewriteRule ^ index.html [L]
+
+# RewriteEngine on
+# RewriteRule ^(.*)$ - [L]
+# RewriteRule ^app/api/.*$ - [L]

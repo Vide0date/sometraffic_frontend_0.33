@@ -1,0 +1,1 @@
+import{p as s,b as t,a9 as o,o as r}from"./entry.4d41dba5.js";const a={},c={class:"bg-slate-300"};function n(e,l){return r(),t("div",c,[o(e.$slots,"default")])}const f=s(a,[["render",n]]);export{f as default};
