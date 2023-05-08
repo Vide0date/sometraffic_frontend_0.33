@@ -266,7 +266,7 @@
           </a>
         </div>
         <p class="text-sm text-center text-black-600">
-          v0.3.2 | &copy; 2023 Sometraffic
+          v0.3.4 | &copy; 2023 Sometraffic
         </p>
       </div>
       <div

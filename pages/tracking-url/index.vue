@@ -24,7 +24,7 @@
             />
           </div>
         </div>
-        <!-- <h1 class="pt-3 pr-4">
+        <h1 class="pt-3 pr-4">
           <NuxtLink to="tracking-url/add" title="Add">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@
               />
             </svg>
           </NuxtLink>
-        </h1> -->
+        </h1>
       </div>
 
       <div class="overflow-x-auto">
