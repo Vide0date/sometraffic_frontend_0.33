@@ -1,1 +1,0 @@
-import{p as s,b as t,a9 as o,o as a}from"./entry.4d41dba5.js";const c={},r={class:"bg-[#848484]"};function n(e,_){return a(),t("div",r,[o(e.$slots,"default")])}const d=s(c,[["render",n]]);export{d as default};
