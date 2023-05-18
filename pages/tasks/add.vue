@@ -199,7 +199,7 @@
                     >
                       <option value="facebook">Facebook</option>
                       <option value="linkedin">LinkedIn</option>
-                      <option value="meetup">Meetup</option>
+                      <option value="prospect">Prospect</option>
                       <option value="anything">Anything</option>
                     </select>
                   </div>

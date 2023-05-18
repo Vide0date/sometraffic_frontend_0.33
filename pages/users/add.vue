@@ -70,6 +70,24 @@
                   <option value="User">User</option>
                 </select>
               </div>
+
+              <div class="col-span-10 sm:col-span-12">
+                <label
+                  for="userType"
+                  class="block text-sm font-medium text-gray-700"
+                  >Account</label
+                >
+                <select
+                  id="Account"
+                  v-model="form.AccountId"
+                  autocomplete="Account"
+                  class="bg-[#dddddd] h-10 py-2 px-3 text-gray-900 mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-gray-800 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  required
+                >
+                <option value=null>Select</option>
+                <option v-for="account in accounts" :key="account.id" :value="account.id">{{account.name}}</option>
+                </select>
+              </div>
             </div>
           </div>
           <div
@@ -90,7 +108,7 @@
 
 <script setup>
 definePageMeta({
-  middleware: ["auth"],
+  middleware: ["auth", "admin"],
 });
 const AWN = inject("$awn");
 const config = useRuntimeConfig();
@@ -99,13 +117,17 @@ const form = reactive({
   email: "",
   password: "",
   userType: "",
+  AccountId: null,
 });
+
+const accounts = ref([])
 const createUser = async () => {
   let a_data = {
     userName: form.userName,
     email: form.email,
     password: form.password,
     userType: form.userType,
+    AccountId: form.AccountId,
   };
 
   // const { data, error } =
@@ -136,6 +158,11 @@ const createUser = async () => {
 
   // location.assign('/users')
 };
+const setAccounts = async () => {
+  const { data: data } = await useFetch(`${config.API_BASE_URL}accounts/all`)
+  accounts.value = data.value
+}
+onBeforeMount(setAccounts)
 </script>
 
 <style scoped></style>

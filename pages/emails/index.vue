@@ -239,7 +239,7 @@
 <script setup>
 
 definePageMeta({
-    middleware: ["auth"],
+    middleware: ["auth", "admin"],
 })
 const AWN = inject("$awn");
 const config = useRuntimeConfig();

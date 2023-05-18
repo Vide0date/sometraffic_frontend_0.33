@@ -77,6 +77,8 @@ const AWN = inject("$awn");
 const config = useRuntimeConfig();
 const hasError = ref(null);
 const errorMessage = ref(null);
+const accounts = ref([]);
+const account = ref({});
 const form = reactive({
   email: "",
   password: "",
@@ -92,6 +94,20 @@ const loginForm = async () => {
     hasError.value = false;
     localStorage.setItem("user", JSON.stringify(data.value));
     localStorage.setItem("authToken", data.value.accessToken);
+    if(data.value.userType === 'Administrator'){
+                console.log('admin', accounts.value);
+                await setAccounts()
+                accounts.value[0].id
+                localStorage.setItem("activeAccount", accounts.value[0].id)
+                localStorage.setItem("activeAccountData", JSON.stringify(accounts.value[0]))
+              }else {
+                console.log('not admin');
+                console.log(accounts.value);
+                localStorage.setItem("activeAccount", data.value.AccountId)
+                const activeAccountData = await getAccount(data.value.AccountId)
+
+                localStorage.setItem("activeAccountData", JSON.stringify(account.value))
+            }
     navigateTo("/dashboard");
     // console.log('localStorage user', user);
   }
@@ -108,6 +124,16 @@ const loginForm = async () => {
     console.log("response error", error.value.statusMessage);
   }
 };
+const setAccounts = async () => {
+  const { data: data } = await useFetch(`${config.API_BASE_URL}accounts/all`)
+  accounts.value = data.value
+}
+
+const getAccount = async (id) => {
+  const { data: data } = await useFetch(`${config.API_BASE_URL}accounts/${id}`)
+  account.value = data.value
+}
+
 </script>
 
 <style scoped></style>

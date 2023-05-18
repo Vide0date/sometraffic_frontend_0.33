@@ -14,7 +14,7 @@
       <div class="flex justify-between">
         <h1 class="font-bold py-4 uppercase">Users</h1>
         <h1 class="pt-3 pr-4">
-          <NuxtLink to="users/add">
+          <NuxtLink to="/users/add">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -39,8 +39,8 @@
             <tr>
               <th class="text-left py-3 px-2 rounded-l-lg">Name</th>
               <th class="text-left py-3 px-2">Email</th>
-              <!-- <th class="text-left py-3 px-2">Password</th> -->
               <th class="text-left py-3 px-2">User Type</th>
+              <th class="text-left py-3 px-2">Account</th>
               <th class="text-left py-3 px-2 rounded-r-lg">Actions</th>
             </tr>
           </thead>
@@ -53,7 +53,7 @@
               <td class="py-3 px-2 font-bold">{{ user.userName }}</td>
               <td class="py-3 px-2">{{ user.email }}</td>
               <td class="py-3 px-2">{{ user.userType }}</td>
-              <!-- <td class="py-3 px-2">{{ user.password }}</td> -->
+              <td class="py-3 px-2">{{ getAccountName(user.AccountId) }}</td>
               <td class="py-3 px-2">
                 <div class="inline-flex items-center space-x-3">
                   <NuxtLink
@@ -110,19 +110,30 @@
 import { Modal } from "usemodal-vue3";
 // const { data: users } = await useFetch('http://localhost:1212/api/users/all')
 definePageMeta({
-  middleware: ["auth"],
+  middleware: ["auth", "admin"],
 });
-
+const user = JSON.parse(localStorage.getItem('user'))
 const AWN = inject("$awn");
 
 const shouldShowDialog = ref(false);
 const users = ref([]);
+const accounts = ref([]);
 const config = useRuntimeConfig();
 
 const setUsers = async () => {
   const { data: data } = await useFetch(`${config.API_BASE_URL}users/all`);
   users.value = data.value;
 };
+
+const setAccounts = async () => {
+  const { data: data } = await useFetch(`${config.API_BASE_URL}accounts/all`)
+  accounts.value = data.value
+}
+
+const getAccountName = (id) => {
+  const account = accounts.value.find(account => account.id === id)
+  return account ? account.name : ''
+}
 
 const handleDelete = async () => {
   const id = localStorage.getItem("sometraffic_delete_user");
@@ -152,6 +163,7 @@ const destroy = async (id) => {
 };
 
 onBeforeMount(setUsers);
+onBeforeMount(setAccounts);
 // onMounted(setUsers)
 </script>
 

@@ -7,13 +7,87 @@
       :cancelButton="{ text: 'Cancel' }"
       :okButton="{ text: 'Okay', onclick: () => handleDelete() }"
     >
-      <div class="text">Are you sure?</div>
+      <div class="text">Are you sure you want to delete {{ name }}?</div>
     </Modal>
+    <div class="flex justify-between">
+        <h1 class="font-bold py-4 capitalize">
+          GPA Items list ({{ groupsTotal }})
+        </h1>
+        <div class="flex items-start">
+          <div class="flex border-2 rounded">
+            <div class="relative">
+              <input
+                type="text"
+                v-model="search.vaClDa"
+                class="px-4 py-2 w-80 border-inherit bg-inherit pr-9 focus:outline-none focus:ring focus:border-blue-600 search"
+                placeholder="Search..."
+                v-on:keyup.enter="enterSearch()"
+              />
+              <!-- <div class="absolute inset-y-0 right-0"> -->
+              <button
+                class="absolute inset-y-0 right-0 px-2"
+                @click="(event) => empty()"
+              >
+                <svg
+                  color="black"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+              <!-- </div> -->
+            </div>
 
+            <button
+              class="flex items-center justify-center px-4 border-l bg-blue-700"
+              @click="(event) => searched()"
+            >
+              <svg
+                class="w-6 h-6 text-slate-50"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
+                />
+              </svg>
+            </button>
+            <button
+              class="flex items-center justify-center px-4 border-l border-grey-600 bg-grey-700"
+              @click="navigateTo('/user-groups/add')"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 4.5v15m7.5-7.5h-15"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
     <div class="overflow-hidden shadow sm:rounded-md">
       <div class="px-4 py-5 sm:p-6">
         <div class="grid grid-cols-12">
-          <div class="col-span-12">
+          <!-- <div class="col-span-12">
             <form @submit.prevent="createUserGroup">
               <div class="grid">
                 <div class="col-span-12">
@@ -62,7 +136,7 @@
                 </div>
               </div>
             </form>
-          </div>
+          </div> -->
           <div class="col-span-12">
             <div class="overflow-x-auto">
               <table class="w-full whitespace-nowrap">
@@ -77,42 +151,53 @@
                 <tbody>
                   <tr
                     class="border-b border-gray-700"
-                    v-for="clickdata in clickdatas"
-                    key="clickdata.id"
+                    v-for="group in searchdatas"
+                    :key="group.id"
                   >
-                    <td class="py-3 px-2">{{ clickdata.id }}</td>
-                    <td class="py-3 px-2">{{ clickdata.name }}</td>
+                  <td class="py-3 px-2">
+                      <NuxtLink
+                        :to="`/user-groups/${group.unique_identifier}`"
+                        title="Edit"
+                        class="hover:text-white"
+                      >
+                        {{ group?.unique_identifier }}
+                      </NuxtLink>
+                    </td>
+
+                    <td class="py-3 px-2">{{ group.name }}</td>
                     <td class="py-3 px-2">
                       {{
-                        clickdata.description?.length > 100
-                          ? clickdata.description.slice(0, 100) + "..."
-                          : clickdata.description
+                        group.description?.length > 100
+                          ? group.description.slice(0, 100) + "..."
+                          : group.description
                       }}
                     </td>
                     <td class="py-3 px-2">
                       <div class="inline-flex items-center space-x-3">
-                        <span
-                          @click="(event) => update(clickdata.id)"
+                        <NuxtLink
+                          :to="`/user-groups/${group.unique_identifier}`"
                           title="Edit"
-                          class="hover:text-white"
-                          ><svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="w-5 h-5"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                            />
-                          </svg>
-                        </span>
+                        >
+                          <span title="Edit" class="hover:text-white"
+                            ><svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke-width="1.5"
+                              stroke="currentColor"
+                              class="w-5 h-5"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                              />
+                            </svg>
+                          </span>
+                        </NuxtLink>
 
                         <span
-                          @click="(event) => destroy(clickdata.id)"
+                          @click="(event) => destroy(group.id, group.name)"
                           title="Delete"
                           class="hover:text-white"
                         >
@@ -157,12 +242,60 @@ const AWN = inject("$awn");
 
 const { id } = useRoute().query;
 const shouldShowDialog = ref(false);
-const clickdatas = ref([]);
+const groups = ref([]);
 // const searchdatas = ref([]);
-const clickdatasTotal = ref(0);
+const groupsTotal = ref(0);
+const searchdatas = ref([]);
+const search = reactive({
+  vaClDa: "",
+});
+
+
+const empty = () => {
+  search.vaClDa = "";
+  searchdatas.value = groups.value;
+  groupsTotal.value = groups.value.length;
+};
+
+const searched = () => {
+  searchdatas.value = groups?._value?.filter((row) => {
+    return (
+        row.createdBy
+        .toLowerCase()
+        ?.includes(search.vaClDa?.toString()?.toLowerCase()) ||
+      row?.unique_identifier?.includes(search.vaClDa) ||
+      row?.name
+        ?.toLowerCase()
+        .includes(search.vaClDa?.toString()?.toLowerCase())  ||
+      row?.description
+        ?.toLowerCase()
+        ?.includes(search.vaClDa?.toString()?.toLowerCase())        
+    )
+  })
+  groupsTotal.value = searchdatas.value.length;
+};
+
+const enterSearch = () => {
+  searchdatas.value = groups?._value?.filter((row) => {
+    return (
+        row.createdBy
+        .toLowerCase()
+        ?.includes(search.vaClDa?.toString()?.toLowerCase()) ||
+      row?.unique_identifier?.includes(search.vaClDa) ||
+      row?.name
+        ?.toLowerCase()
+        .includes(search.vaClDa?.toString()?.toLowerCase())  ||
+      row?.description
+        ?.toLowerCase()
+        ?.includes(search.vaClDa?.toString()?.toLowerCase())        
+    )
+  })
+  groupsTotal.value = searchdatas.value.length;
+};
 
 const defUser = JSON.parse(localStorage.getItem("user"));
-
+const activeProject = ref(0)
+const name = ref('')
 const form = reactive({
   id: "",
   user_id: "",
@@ -202,7 +335,7 @@ const createUserGroup = async () => {
       form.name = "";
       form.description = "";
 
-      setClickDatas();
+      setGroupsData();
 
       await AWN.success(data.value.message);
     }
@@ -220,7 +353,7 @@ const createUserGroup = async () => {
           form.name = "";
           form.description = "";
 
-          setClickDatas();
+          setGroupsData();
 
           AWN.success(result.data.value.message);
           // navigateTo("/user-groups");
@@ -237,11 +370,13 @@ const createUserGroup = async () => {
   }
 };
 
-const setClickDatas = async () => {
-  const { data: data } = await useFetch(`${config.API_BASE_URL}groups/all?userid=${defUser.userId}`);
+const setGroupsData = async () => {
+  activeProject.value = parseInt(localStorage.getItem('activeProject'))
+  const { data: data } = await useFetch(`${config.API_BASE_URL}groups/all?ProjectId=${activeProject.value}`);
 
-  clickdatas.value = data.value;
-  clickdatasTotal.value = data.value?.length ;
+  searchdatas.value = data.value
+  groups.value = data.value;
+  groupsTotal.value = data.value?.length ;
 };
 
 const update = async (id) => {
@@ -252,9 +387,11 @@ const update = async (id) => {
   form.description = user.value.description;
 };
 
-const destroy = async (id) => {
+const destroy = async (id, deletingName) => {
   shouldShowDialog.value = true;
   localStorage.setItem("sometraffic_delete_group", id);
+  localStorage.setItem("sometraffic_delete_group_name", deletingName)
+  name.value = deletingName
 };
 
 const handleDelete = async () => {
@@ -277,8 +414,31 @@ const handleDelete = async () => {
   }
 
   localStorage.removeItem("sometraffic_delete_group");
-  await setClickDatas();
+  await setGroupsData();
 };
 
-onBeforeMount(setClickDatas);
+onBeforeMount(setGroupsData);
 </script>
+<style scoped>
+#users_groups h1,
+table tbody tr td,
+input {
+  color: #000 !important;
+}
+
+#users_groups input.search {
+  background: #ddd;
+}
+</style>
+
+<style >
+.modal-vue3-header,
+.modal-vue3-body .text {
+  color: #000 !important;
+}
+
+.confirm-modal > div > .modal-vue3-content {
+  /* background: red; */
+  /* display: none !important; */
+}
+</style>

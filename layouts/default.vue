@@ -1,5 +1,6 @@
 <template>
   <div
+    id="container"
     class="antialiased bg-[#848484] w-full min-h-screen text-slate-300 relative py-4"
   >
     <Modal
@@ -23,9 +24,8 @@
           class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-black via-black/50 to-transparent bg-clip-text text-transparent"
         >
           <NuxtLink to="/dashboard">Dashboard</NuxtLink
-          ><span class="text-black">.</span>
+          >
         </h1>
-        <p class="text-slate-600 text-sm mb-2">Welcome back,</p>
         <h2 class="text-white-600 text-md mb-2"><TimeDisplay /></h2>
         <!-- <h2 class="text-white-600 text-md mb-2"><TimeDisplayZone timezone="America/New_York"/></h2> -->
 
@@ -53,6 +53,20 @@
               </span>
             </div>
           </NuxtLink>
+          <div id="project-selector" class="relative mb-8">
+            <div @click="showProjectsList = !showProjectsList" class="cursor-pointer flex bg-white p-3 w-3/5 text-black">
+              <button>{{projects.length ? projects.find(project => project.id === activeProject).name : ''}}</button>
+            </div>
+            <div v-show="showProjectsList" class="absolute -right-2 top-0  flex flex-col gap-y-4 bg-white rounded-md p-4 text-black">
+              <div class="flex flex-col gap-y-2" v-for="(project, index) in projects" :key="project.id">
+                <button @click="setActiveProject(project.id)">{{project.name}}</button>
+                <hr :class="{'border-black': index + 1 === projects.length}">
+              </div>
+              <button class="text-center cursor-pointer" @click="navigateTo('/projects/add'); showProjectsList = false;">+ Add a project</button>
+              <hr>
+              <button class="text-center cursor-pointer" @click="navigateTo('/projects'); showProjectsList = false;">View projects</button>
+            </div>
+          </div>
 
           <!-- <a
             :href="config.API_BASE_URL.replace('api/', '') + 'sometraffic.sql'"
@@ -60,9 +74,26 @@
             target="_blank"
             >Download Database</a
           > -->
-          <span class="download-db hover:text-gray-700" @click="downloadDb()"
-            >Download Database</span
-          >
+          <div v-if="user.userType === 'Administrator' || user.userType === 'administrator'" class="flex w-full">
+
+            <NuxtLink
+            class="hover:bg-white/10 hover:text-black hover:border hover:border-white hover:border-solid transition w-full duration-150 ease-linear rounded-lg py-3 px-2 group"
+            to="/admin-settings"
+            >
+            <div
+            class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center"
+            >
+            <div>
+                <p
+                class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-black"
+                >
+                Admin settings
+              </p>
+            </div>
+          </div>
+        </NuxtLink>
+      </div>
+
           <!--
                         Dropdown menu, show/hide based on menu state.
 
@@ -100,22 +131,6 @@
 
         <hr class="my-2 border-slate-700" />
         <div id="menu" class="flex flex-col space-y-2 my-5">
-          <NuxtLink
-            class="hover:bg-white/10 hover:text-black hover:border hover:border-white hover:border-solid transition duration-150 ease-linear rounded-lg py-3 px-2 group"
-            to="/dashboard"
-          >
-            <div
-              class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center"
-            >
-              <div>
-                <p
-                  class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-black"
-                >
-                  Dashboard
-                </p>
-              </div>
-            </div>
-          </NuxtLink>
           <NuxtLink
             class="hover:bg-white/10 hover:text-black hover:border hover:border-white hover:border-solid transition duration-150 ease-linear rounded-lg py-3 px-2 group"
             to="/category-items"
@@ -165,6 +180,7 @@
             </div>
           </NuxtLink>
           <NuxtLink
+          v-if="user.userType === 'Administrator'"
             class="hover:bg-white/10 hover:text-black hover:border hover:border-white hover:border-solid transition duration-150 ease-linear rounded-lg py-3 px-2 group"
             to="/users"
           >
@@ -180,7 +196,7 @@
               </div>
             </div>
           </NuxtLink>
-          <NuxtLink
+          <!-- <NuxtLink
             class="hover:bg-white/10 hover:text-black hover:border hover:border-white hover:border-solid transition duration-150 ease-linear rounded-lg py-3 px-2 group"
             to="/emails"
           >
@@ -195,7 +211,7 @@
                 </p>
               </div>
             </div>
-          </NuxtLink>
+          </NuxtLink> -->
           <NuxtLink
             class="hover:bg-white/10 hover:text-black hover:border hover:border-white hover:border-solid transition duration-150 ease-linear rounded-lg py-3 px-2 group"
             to="/tracking-url"
@@ -272,7 +288,7 @@
       <div
         id="content"
         class="border border-white border-solid bg-white/10 col-span-9 rounded-lg p-6"
-      >
+        >
         <slot />
       </div>
     </div>
@@ -287,6 +303,7 @@ const AWN = inject("$awn");
 const config = useRuntimeConfig();
 
 const shouldShowDialog = ref(false);
+const showProjectsList = ref(false);
 const user = reactive({
   userName: "",
   userType: "",
@@ -294,6 +311,12 @@ const user = reactive({
 });
 const db_name = moment(new Date()).format("YYYY-MM-DD-HH_mm");
 const full_db_name = `sometraffic-${db_name}`;
+const projects = ref([])
+const activeAccount = ref(
+  localStorage.getItem("activeAccount")
+)
+const activeProject = ref(0)
+
 
 const setShow = async () => {
   if (typeof window !== "undefined") {
@@ -307,8 +330,48 @@ const setShow = async () => {
   }
 };
 
+const setProjects = async () => {
+  const { data: data } = await useFetch(
+    `${config.API_BASE_URL}projects/all?AccountId=${activeAccount.value}`
+  )
+  projects.value = data.value
+  activeProject.value = localStorage.getItem('activeProject') ? parseInt(localStorage.getItem('activeProject')) : projects.value[0].id
+  localStorage.setItem('activeProject', activeProject.value)
+}
+
+const setActiveProject = (index) => {
+  showProjectsList.value = false;
+  activeProject.value = index
+  localStorage.setItem('activeProject', JSON.stringify(activeProject.value))
+  const router = useRouter()
+  router.go()
+}
+
+onBeforeMount(setProjects);
 onBeforeMount(setShow);
-onMounted(setShow);
+onMounted(() => {
+  document.addEventListener("click", function(evt) {
+        let projectEl = document.getElementById('project-selector'),
+          targetEl = evt.target; // clicked element      
+        do {
+          if(targetEl == projectEl) {
+            // This is a click inside, does nothing, just return.
+            return;
+          }
+          // Go up the DOM
+          targetEl = targetEl.parentNode;
+        } while (targetEl);
+        // This is a click outside.
+        showProjectsList.value = false
+      });
+  setShow()
+  // const route = useRoute()
+  // if((user.userType !== 'Administrator' || user.userType !== 'administrator') && route.path.includes('admin-settings')){
+  //   const router = useRouter()
+  //   router.push('/dashboard')
+  // }
+}
+  );
 
 // const time = () => {
 //     const today = new Date();

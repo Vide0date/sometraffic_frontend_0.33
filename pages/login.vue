@@ -46,6 +46,7 @@
         middleware: ['guest'],
         layout: 'auth',
     })
+    console.log('login');
     const hasError = ref(null)
     const errorMessage = ref(null)
     const form = reactive({
@@ -64,6 +65,12 @@
             hasError.value=false
             localStorage.setItem("user", JSON.stringify(data.value))
             localStorage.setItem("authToken", data.value.accessToken);
+            if(data.value.userType === 'Administrator'){
+                console.log('admin');
+            }else {
+                console.log('not admin');
+                localStorage.setItem("activeAccount", data.value.AccountId)
+            }
             navigateTo('/')
         }
         if(error.value){
