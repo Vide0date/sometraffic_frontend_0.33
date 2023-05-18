@@ -1,0 +1,1 @@
+function c(t){const{req:e,res:r,query:o}=t;console.log("Request: ",e);const n=e.headers["user-agent"].includes("facebookexternalhit"),s=o.fb_crawler;n&&s&&(r.writeHead(302,{Location:"https://yourdestinationurl.com"}),r.end())}export{c as default};
