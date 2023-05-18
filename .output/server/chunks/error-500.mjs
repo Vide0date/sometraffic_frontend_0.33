@@ -19,4 +19,3 @@ const template = _template;
 
 export { template };
 //# sourceMappingURL=error-500.mjs.map
- 
