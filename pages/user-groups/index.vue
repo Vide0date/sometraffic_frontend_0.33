@@ -11,7 +11,7 @@
     </Modal>
     <div class="flex justify-between">
         <h1 class="font-bold py-4 capitalize">
-          GPA Items list ({{ groupsTotal }})
+          Groups list ({{ groupsTotal }})
         </h1>
         <div class="flex items-start">
           <div class="flex border-2 rounded">

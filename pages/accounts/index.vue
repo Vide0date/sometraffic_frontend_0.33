@@ -10,7 +10,7 @@
       <div class="text">Are you sure you want to delete {{ name }}?</div>
     </Modal>
     <div class="flex justify-between">
-      <h1 class="font-bold py-4 capitalize">Accounts ({{ accountsTotal }})</h1>
+      <h1 class="font-bold py-4 capitalize">Accounts list ({{ accountsTotal }})</h1>
       <div class="flex items-start">
         <div class="flex border-2 rounded">
           <div class="relative">

@@ -947,7 +947,10 @@ const copy = async (id) => {
 };
 
 const setClickDatas = async () => {
-  const { data: data } = await useFetch(`${config.API_BASE_URL}groups/all?userid=${JSON.parse(local_data).userId}`);
+  const activeProject = parseInt(localStorage.getItem('activeProject'))
+  const { data: data } = await useFetch(
+    `${config.API_BASE_URL}groups/all?ProjectId=${activeProject}`
+  );
   clickdatas.value = data.value;
 };
 
