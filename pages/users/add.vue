@@ -66,7 +66,6 @@
                 >
                   <option value="">Select</option>
                   <option value="Administrator">Administrator</option>
-                  <option value="Moderator">Moderator</option>
                   <option value="User">User</option>
                 </select>
               </div>

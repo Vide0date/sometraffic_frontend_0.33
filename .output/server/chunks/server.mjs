@@ -533,7 +533,7 @@ const _routes = [
     meta: __nuxt_page_meta$t,
     alias: (__nuxt_page_meta$t == null ? void 0 : __nuxt_page_meta$t.alias) || [],
     redirect: (__nuxt_page_meta$t == null ? void 0 : __nuxt_page_meta$t.redirect) || void 0,
-    component: () => import('./_id_-d2c7efb0.mjs').then((m) => m.default || m)
+    component: () => import('./_id_-183b0f95.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$s == null ? void 0 : __nuxt_page_meta$s.name) ?? "category-items-add",
@@ -542,7 +542,7 @@ const _routes = [
     meta: __nuxt_page_meta$s,
     alias: (__nuxt_page_meta$s == null ? void 0 : __nuxt_page_meta$s.alias) || [],
     redirect: (__nuxt_page_meta$s == null ? void 0 : __nuxt_page_meta$s.redirect) || void 0,
-    component: () => import('./add-5228ca1e.mjs').then((m) => m.default || m)
+    component: () => import('./add-96781576.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$r == null ? void 0 : __nuxt_page_meta$r.name) ?? "category-items",
@@ -776,7 +776,7 @@ const _routes = [
     meta: __nuxt_page_meta$2,
     alias: (__nuxt_page_meta$2 == null ? void 0 : __nuxt_page_meta$2.alias) || [],
     redirect: (__nuxt_page_meta$2 == null ? void 0 : __nuxt_page_meta$2.redirect) || void 0,
-    component: () => import('./_id_-df6e5c4c.mjs').then((m) => m.default || m)
+    component: () => import('./_id_-aaf82af7.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$1 == null ? void 0 : __nuxt_page_meta$1.name) ?? "users-add",
@@ -785,7 +785,7 @@ const _routes = [
     meta: __nuxt_page_meta$1,
     alias: (__nuxt_page_meta$1 == null ? void 0 : __nuxt_page_meta$1.alias) || [],
     redirect: (__nuxt_page_meta$1 == null ? void 0 : __nuxt_page_meta$1.redirect) || void 0,
-    component: () => import('./add-ea4a06a8.mjs').then((m) => m.default || m)
+    component: () => import('./add-3676905b.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta == null ? void 0 : __nuxt_page_meta.name) ?? "users",
@@ -1645,7 +1645,7 @@ const _wrapIf = (component, props, slots) => {
 };
 const layouts = {
   auth: () => import('./auth-61118b8b.mjs').then((m) => m.default || m),
-  default: () => import('./default-a968d094.mjs').then((m) => m.default || m),
+  default: () => import('./default-38bdf765.mjs').then((m) => m.default || m),
   front: () => import('./front-628b0a0e.mjs').then((m) => m.default || m),
   redirect: () => import('./redirect-0d23ffed.mjs').then((m) => m.default || m)
 };

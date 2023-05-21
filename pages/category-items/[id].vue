@@ -207,7 +207,6 @@
                   >
                     <option value="facebook">Facebook</option>
                     <option value="linkedin">LinkedIn</option>
-                    <option value="prospect">Prospect</option>
                     <option value="anything">Anything</option>
                   </select>
                 </div>
@@ -269,7 +268,7 @@
             </div>
 
             <div>
-              <div class="flex flex-row py-2">
+              <div class="flex flex-row py-2 mt-4">
                 <div
                   class="basis-1/4 flex items-center text-sm font-medium text-gray-700"
                 >
@@ -296,37 +295,27 @@
                     />
                   </svg>
                 </div>
-                <div class="basis-1/2">
-                  <!-- <select
-                    v-model="form.group"
-                    id="priority"
-                    class="bg-[#dddddd] h-10 py-2 px-3 text-gray-900 mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-gray-800 focus:ring-indigo-500 sm:text-sm"
-                    required
-                  >
-                    <option value="all">All</option>
-                    <option value="digital_nomad">Digital Nomad</option>
-                    <option value="work_home">Work from Home</option>
-                    <option value="inactive">Inactive</option>
-                    <option value="freelance">Freelance</option>
-                  </select> -->
-
-                  <select
-                    id="priority"
-                    class="bg-[#dddddd] h-10 py-2 px-3 text-gray-900 mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-gray-800 focus:ring-indigo-500 sm:text-sm"
-                    v-model="form.group"
-                  >
-                    <option
-                      v-for="clickdata in clickdatas"
-                      :value="`${clickdata.id}`"
-                    >
-                      {{ clickdata.name }}
-                    </option>
-                    <!-- <option value="digital_nomad">Digital Nomad</option>
-                    <option value="work_home">Work from Home</option>
-                    <option value="inactive">Inactive</option>
-                    <option value="freelance">Freelance</option> -->
-                  </select>
-                </div>
+                <div class="basis-3/4">
+                  <div id="group-selector" class="relative">
+            <div @click="showProjectsList = !showProjectsList" class="rounded-md cursor-pointer relative flex bg-white p-3 w-3/5 text-black">
+              <button type="button">{{clickdatas.length ? clickdatas.find(group => group.id === form.group) ? clickdatas.find(group => group.id === form.group).name : 'select group' :''}}</button>
+              <span :class="{'rotate-180':showProjectsList}" class="absolute right-3 top-1/2 -translate-y-1"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="24px" height="14px" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
+<g id="Rounded_Rectangle_33_copy_4_1_">
+	<path d="M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937   c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937   c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z"/>
+</g>
+              </svg></span>
+            </div>
+            <div v-show="showProjectsList" class="absolute overflow-y-auto max-h-96 -right-2 top-0  flex flex-col gap-y-4 bg-white rounded-md p-4 text-black">
+              <div class="flex flex-col gap-y-2" v-for="(group, index) in clickdatas" :key="group.id">
+                <button type="button" @click="setGroup(group.id)">{{group.name}}</button>
+                <hr :class="{'border-black': index + 1 === clickdatas.length}">
+              </div>
+              <button class="text-center cursor-pointer" @click="navigateTo('/user-groups/add'); showProjectsList = false;">+ Add a group</button>
+              <hr>
+              <button class="text-center cursor-pointer" @click="navigateTo('/groups'); showProjectsList = false;">View groups list</button>
+            </div>
+          </div>
+          </div>
               </div>
 
               <div class="flex flex-row py-2">
@@ -819,6 +808,13 @@ let local_data = localStorage.getItem("user");
 const clickdatas = ref([]);
 const uniqueUrl = ref("");
 const isLoading = ref(false);
+const showProjectsList = ref(false);
+
+const setGroup = (id) => {
+  showProjectsList.value = false;
+  form.group = id
+}
+
 
 setInterval(() => {
   timestamp = new Date().toLocaleTimeString();
@@ -955,6 +951,24 @@ const setClickDatas = async () => {
 };
 
 onBeforeMount(setClickDatas);
+onMounted(() => {
+  document.addEventListener("click", function(evt) {
+        let groupEl = document.getElementById('group-selector'),
+          targetEl = evt.target; // clicked element      
+        do {
+          if(targetEl == groupEl) {
+            // This is a click inside, does nothing, just return.
+            return;
+          }
+          // Go up the DOM
+          targetEl = targetEl.parentNode;
+        } while (targetEl);
+        // This is a click outside.
+        showProjectsList.value = false
+      });
+}
+  );
+
 </script>
 
 <script>
