@@ -1,1 +1,0 @@
-import{e,o as t,i as a}from"./entry.600093e6.js";const o=a("h1",{class:"text-2xl"},"Sometraffic Dashboard",-1),s=[o],d={__name:"dashboard",setup(c){return(r,_)=>(t(),e("div",null,s))}};export{d as default};

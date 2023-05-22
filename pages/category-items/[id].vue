@@ -310,9 +310,9 @@
                 <button type="button" @click="setGroup(group.id)">{{group.name}}</button>
                 <hr :class="{'border-black': index + 1 === clickdatas.length}">
               </div>
-              <button class="text-center cursor-pointer" @click="navigateTo('/user-groups/add'); showProjectsList = false;">+ Add a group</button>
+              <button type="button" class="text-center cursor-pointer" @click="navigateTo('/user-groups/add'); showProjectsList = false;">+ Add a group</button>
               <hr>
-              <button class="text-center cursor-pointer" @click="navigateTo('/groups'); showProjectsList = false;">View groups list</button>
+              <button type="button" class="text-center cursor-pointer" @click="navigateTo('/user-groups'); showProjectsList = false;">View groups list</button>
             </div>
           </div>
           </div>
