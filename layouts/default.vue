@@ -67,9 +67,9 @@
             <div @click="projects.length ? showProjectsList = !showProjectsList : navigateTo('/projects/add')" class="rounded-md cursor-pointer relative flex bg-white p-3 w-3/5 text-black">
               <button>{{projects.length ? projects.find(project => project.id === parseInt(activeProject)).name : 'Create first project'}}</button>
               <span v-if="projects.length" :class="{'rotate-180':showProjectsList}" class="absolute right-3 top-1/2 -translate-y-1"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="24px" height="14px" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
-<g id="Rounded_Rectangle_33_copy_4_1_">
-	<path d="M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937   c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937   c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z"/>
-</g>
+                <g id="Rounded_Rectangle_33_copy_4_1_">
+                  <path d="M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937   c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937   c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z"/>
+                </g>
 </svg></span>
             </div>
             <div v-show="showProjectsList" class="absolute -right-2 bottom-10 translate-y-full  flex flex-col gap-y-4 bg-white rounded-md p-4 text-black">
@@ -80,6 +80,13 @@
               <button class="text-center cursor-pointer" @click="navigateTo('/projects/add'); showProjectsList = false;">+ Add a project</button>
               <hr>
               <button class="text-center cursor-pointer" @click="navigateTo('/projects'); showProjectsList = false;">View projects</button>
+            </div>
+            <!-- <hr class="border-black mt-8"> -->
+            <div class="flex text-white gap-x-8 mt-9">
+              <p class="font-bold text-xl">Joined groups</p>
+                
+               <span class="text-center self-center">{{joinedGroups}}</span>
+               <span class="text-center self-center bg-slate-500 px-4 py-2 rounded-md hover:bg-slate-800 cursor-pointer" @click="incrementJoinedGroups">+</span>
             </div>
           </div>
 
@@ -319,6 +326,7 @@ const config = useRuntimeConfig();
 
 const shouldShowDialog = ref(false);
 const showProjectsList = ref(false);
+const joinedGroups = ref(0)
 const user = reactive({
   userName: "",
   userType: "",
@@ -335,6 +343,17 @@ const activeAccountData = ref(
 )
 const activeProject = ref(localStorage.getItem('activeProject'))
 
+
+const incrementJoinedGroups = async() => {
+  await useFetch(
+    `${config.API_BASE_URL}joined-groups/create`,
+    {
+    method: "POST",
+  }
+  )
+  joinedGroups.value += 1
+
+}
 
 const setShow = async () => {
   if (typeof window !== "undefined") {
@@ -366,6 +385,14 @@ const setActiveProject = (index) => {
   router.go()
 }
 
+const setJoinedGroup = async () => {
+  const { data: data } = await useFetch(
+    `${config.API_BASE_URL}joined-groups/all`
+  )
+  joinedGroups.value = data.value.length
+}
+
+onBeforeMount(setJoinedGroup);
 onBeforeMount(setProjects);
 onBeforeMount(setShow);
 onMounted(() => {
