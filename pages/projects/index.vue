@@ -353,6 +353,11 @@ const handleDelete = async () => {
   if (data.value) {
     shouldShowDialog.value = false
     await AWN.success(data.value.message)
+    const activeProject = localStorage.getItem('activeProject')
+    if(activeProject === id)
+    localStorage.removeItem('activeProject')
+    const router = useRouter()
+          router.go("/projects")
   }
   if (error.value) {
     shouldShowDialog.value = false

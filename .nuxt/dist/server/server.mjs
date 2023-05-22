@@ -525,7 +525,7 @@ const _routes = [
     meta: __nuxt_page_meta$u,
     alias: (__nuxt_page_meta$u == null ? void 0 : __nuxt_page_meta$u.alias) || [],
     redirect: (__nuxt_page_meta$u == null ? void 0 : __nuxt_page_meta$u.redirect) || void 0,
-    component: () => import("./_nuxt/index-eca8d1bd.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/index-bee5cd51.js").then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$t == null ? void 0 : __nuxt_page_meta$t.name) ?? "category-items-id",
@@ -651,7 +651,7 @@ const _routes = [
     meta: __nuxt_page_meta$g,
     alias: (__nuxt_page_meta$g == null ? void 0 : __nuxt_page_meta$g.alias) || [],
     redirect: (__nuxt_page_meta$g == null ? void 0 : __nuxt_page_meta$g.redirect) || void 0,
-    component: () => import("./_nuxt/_id_-df6560f7.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/_id_-6b82f2b6.js").then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$f == null ? void 0 : __nuxt_page_meta$f.name) ?? "projects-add",
@@ -660,7 +660,7 @@ const _routes = [
     meta: __nuxt_page_meta$f,
     alias: (__nuxt_page_meta$f == null ? void 0 : __nuxt_page_meta$f.alias) || [],
     redirect: (__nuxt_page_meta$f == null ? void 0 : __nuxt_page_meta$f.redirect) || void 0,
-    component: () => import("./_nuxt/add-ce7c4574.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/add-61cb5a0c.js").then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$e == null ? void 0 : __nuxt_page_meta$e.name) ?? "projects",
@@ -669,7 +669,7 @@ const _routes = [
     meta: __nuxt_page_meta$e,
     alias: (__nuxt_page_meta$e == null ? void 0 : __nuxt_page_meta$e.alias) || [],
     redirect: (__nuxt_page_meta$e == null ? void 0 : __nuxt_page_meta$e.redirect) || void 0,
-    component: () => import("./_nuxt/index-0f5a8004.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/index-b7f47172.js").then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$d == null ? void 0 : __nuxt_page_meta$d.name) ?? "redirect-page",
@@ -1648,7 +1648,7 @@ const _wrapIf = (component, props, slots) => {
 };
 const layouts = {
   auth: () => import("./_nuxt/auth-61118b8b.js").then((m) => m.default || m),
-  default: () => import("./_nuxt/default-38bdf765.js").then((m) => m.default || m),
+  default: () => import("./_nuxt/default-fdcd7105.js").then((m) => m.default || m),
   front: () => import("./_nuxt/front-628b0a0e.js").then((m) => m.default || m),
   redirect: () => import("./_nuxt/redirect-0d23ffed.js").then((m) => m.default || m)
 };

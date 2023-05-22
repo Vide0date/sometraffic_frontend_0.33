@@ -524,7 +524,7 @@ const _routes = [
     meta: __nuxt_page_meta$u,
     alias: (__nuxt_page_meta$u == null ? void 0 : __nuxt_page_meta$u.alias) || [],
     redirect: (__nuxt_page_meta$u == null ? void 0 : __nuxt_page_meta$u.redirect) || void 0,
-    component: () => import('./index-eca8d1bd.mjs').then((m) => m.default || m)
+    component: () => import('./index-bee5cd51.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$t == null ? void 0 : __nuxt_page_meta$t.name) ?? "category-items-id",
@@ -650,7 +650,7 @@ const _routes = [
     meta: __nuxt_page_meta$g,
     alias: (__nuxt_page_meta$g == null ? void 0 : __nuxt_page_meta$g.alias) || [],
     redirect: (__nuxt_page_meta$g == null ? void 0 : __nuxt_page_meta$g.redirect) || void 0,
-    component: () => import('./_id_-df6560f7.mjs').then((m) => m.default || m)
+    component: () => import('./_id_-6b82f2b6.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$f == null ? void 0 : __nuxt_page_meta$f.name) ?? "projects-add",
@@ -659,7 +659,7 @@ const _routes = [
     meta: __nuxt_page_meta$f,
     alias: (__nuxt_page_meta$f == null ? void 0 : __nuxt_page_meta$f.alias) || [],
     redirect: (__nuxt_page_meta$f == null ? void 0 : __nuxt_page_meta$f.redirect) || void 0,
-    component: () => import('./add-ce7c4574.mjs').then((m) => m.default || m)
+    component: () => import('./add-61cb5a0c.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$e == null ? void 0 : __nuxt_page_meta$e.name) ?? "projects",
@@ -668,7 +668,7 @@ const _routes = [
     meta: __nuxt_page_meta$e,
     alias: (__nuxt_page_meta$e == null ? void 0 : __nuxt_page_meta$e.alias) || [],
     redirect: (__nuxt_page_meta$e == null ? void 0 : __nuxt_page_meta$e.redirect) || void 0,
-    component: () => import('./index-0f5a8004.mjs').then((m) => m.default || m)
+    component: () => import('./index-b7f47172.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$d == null ? void 0 : __nuxt_page_meta$d.name) ?? "redirect-page",
@@ -1645,7 +1645,7 @@ const _wrapIf = (component, props, slots) => {
 };
 const layouts = {
   auth: () => import('./auth-61118b8b.mjs').then((m) => m.default || m),
-  default: () => import('./default-38bdf765.mjs').then((m) => m.default || m),
+  default: () => import('./default-fdcd7105.mjs').then((m) => m.default || m),
   front: () => import('./front-628b0a0e.mjs').then((m) => m.default || m),
   redirect: () => import('./redirect-0d23ffed.mjs').then((m) => m.default || m)
 };
