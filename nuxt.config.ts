@@ -22,6 +22,7 @@ export default defineNuxtConfig({
         '/user-groups/**': { ssr: false },
         '/redirecting/**': { ssr: false },
         '/**': { ssr: false },
+        '/[id].vue': { ssr: true },
     },
     modules: [
         '@nuxtjs/tailwindcss',

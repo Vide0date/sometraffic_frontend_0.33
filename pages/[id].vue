@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Head v-if="redirect?.length > 0">
-      <Title>Some traffic | {{ redirect[0]?.seo_title }}</Title>
+    <!-- <Head v-if="redirect?.length > 0">
+      <Title>Some traffic | {{ redirect[0]?.seo_title }}</Title> -->
 
       <!-- Open Graph Meta Tags -->
-      <Meta property="og:title" :content="redirect[0]?.seo_title" />
+      <!-- <Meta property="og:title" :content="redirect[0]?.seo_title" />
       <Meta property="og:description" :content="redirect[0]?.seo_description" />
       <Meta property="og:image" :content="redirect[0]?.seo_image_url" />
       <Meta property="og:url" :content="fullpath" />
       <Meta property="og:type" content="Some traffic web app" />
-    </Head>
+    </Head> -->
 
     <div class="w-screen h-screen rounded-xl p-8 flex justify-center m-auto">
       <div class="space-y-8 flex justify-center m-auto object-center">
@@ -32,10 +32,11 @@ const AWN = inject("$awn");
 const path = window.location.href;
 const fullpath = path.split("?")[0];
 
-const { id } = await useRoute().params;
+const { id } = useRoute().params;
 const redirect = ref([]);
 const flaq = reactive({ redirect_flaq: false });
 
+onBeforeMount(async () => {
 const screenWidth = window?.screen?.width;
 const screenHeight = window?.screen?.height;
 
@@ -69,6 +70,31 @@ if (id) {
         if (!destination.includes("http") || !destination.includes("http")) {
           destination = "https://" + destination;
         }
+        useHead({
+          title: "Some traffic | " + redirect[0]?.seo_title,
+          meta: [
+            {
+              property: "og:title",
+              content: redirect[0]?.seo_title
+            },
+            {
+              property: "og:description",
+              content: redirect[0]?.seo_description
+            },
+            {
+              property: "og:image",
+              content: redirect[0]?.seo_image_url
+            },
+            {
+              property: "og:url",
+              content: fullpath
+            },
+            {
+              property: "og:type",
+              content: "Some traffic web app"
+            },
+          ]
+        })
         // window.location.assign(destination);
       }
       if (result.error.value) {
@@ -79,5 +105,7 @@ if (id) {
     .catch((error) => {
       AWN.alert(error);
     });
-}
+  }
+})
+
 </script>

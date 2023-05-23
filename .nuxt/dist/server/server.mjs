@@ -480,7 +480,7 @@ const _routes = [
     meta: __nuxt_page_meta$z,
     alias: (__nuxt_page_meta$z == null ? void 0 : __nuxt_page_meta$z.alias) || [],
     redirect: (__nuxt_page_meta$z == null ? void 0 : __nuxt_page_meta$z.redirect) || void 0,
-    component: () => import("./_nuxt/_id_-4b6a9129.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/_id_-7f222e6e.js").then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$y == null ? void 0 : __nuxt_page_meta$y.name) ?? "_r",
@@ -597,7 +597,7 @@ const _routes = [
     meta: __nuxt_page_meta$m,
     alias: (__nuxt_page_meta$m == null ? void 0 : __nuxt_page_meta$m.alias) || [],
     redirect: (__nuxt_page_meta$m == null ? void 0 : __nuxt_page_meta$m.redirect) || void 0,
-    component: () => import("./_nuxt/_id_-fcd19630.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/_id_-cf2d772a.js").then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$l == null ? void 0 : __nuxt_page_meta$l.name) ?? "index",
