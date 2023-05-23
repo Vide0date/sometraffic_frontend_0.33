@@ -80,41 +80,45 @@ if (params.id && params.id.length === 7) {
       });
   }
   console.log("Redirect: ", redirect);
+  const screenWidth = window?.screen?.width;
+  const screenHeight = window?.screen?.height;
+  let network_speed = "";
+if (navigator.connection) {
+  const connection = navigator.connection;
+  const speedMbps = connection.downlink; // Get the estimated download speed in Mbps
+  network_speed = speedMbps + " Mbps";
+  console.log("Internet speed is " + speedMbps + " Mbps");
+} else {
+  console.log("navigator.connection is not available");
+}
 
-  // await useFetch(`${config.API_BASE_URL}trackingurl/redirect`, {
-  //   method: "POST",
-  //   body: {
-  //     id: params.id,
-  //     tracking_url: fullpath,
-  //     screen_resolution: screenWidth + "x" + screenHeight,
-  //     network_speed: "",
-  //     referrer_url: query.fbclid ? "https://facebook.com" : "",
-  //   },
-  // })
-  //   .then((result) => {
-  //     if (result.data.value) {
-  //     console.log("Destination: ", result.data.value.destination_url);
-  //       redirect.value = result.data.value.redirect;
-  //       let destination = result.data.value.destination_url;
-  //       if (!destination.includes("http") || !destination.includes("http")) {
-  //         destination = "https://" + destination;
-  //       }
-
-  //       if (query.fbclid) {
-  //         router.push({
-  //           path: "/_r",
-  //           query: {
-  //             destination,
-  //           },
-  //         });
-  //       }
-  //     }
-  //     if (result.error.value) {
-  //       console.log("Error no result", result.error);
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.log("Error useFetch: ", error);
-  //   });
+  await useFetch(`${config.API_BASE_URL}trackingurl/redirect`, {
+    method: "POST",
+    body: {
+      id: params.id,
+      tracking_url: fullpath,
+      screen_resolution: screenWidth + "x" + screenHeight,
+      network_speed: network_speed,
+      referrer_url: document.referrer,
+    },
+  })
+    .then((result) => {
+      if (result.data.value) {
+        redirect.value = result.data.value.redirect;
+        // flaq.redirect_flaq = !flaq.redirect_flaq;
+        let destination = result.data.value.destination_url;
+        if (!destination.includes("http") || !destination.includes("http")) {
+          destination = "https://" + destination;
+        }
+        window.location.assign(destination);
+      }
+      if (result.error.value) {
+        console.log("error value1", result.error.value.data.message);
+        AWN.alert(error);
+      }
+    })
+    .catch((error) => {
+      AWN.alert(error);
+    });
 }
 </script>
