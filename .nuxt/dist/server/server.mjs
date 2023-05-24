@@ -516,7 +516,7 @@ const _routes = [
     meta: __nuxt_page_meta$v,
     alias: (__nuxt_page_meta$v == null ? void 0 : __nuxt_page_meta$v.alias) || [],
     redirect: (__nuxt_page_meta$v == null ? void 0 : __nuxt_page_meta$v.redirect) || void 0,
-    component: () => import("./_nuxt/index-3f1f4f4d.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/index-293a4fc1.js").then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$u == null ? void 0 : __nuxt_page_meta$u.name) ?? "admin-settings",
@@ -660,7 +660,7 @@ const _routes = [
     meta: __nuxt_page_meta$f,
     alias: (__nuxt_page_meta$f == null ? void 0 : __nuxt_page_meta$f.alias) || [],
     redirect: (__nuxt_page_meta$f == null ? void 0 : __nuxt_page_meta$f.redirect) || void 0,
-    component: () => import("./_nuxt/add-61cb5a0c.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/add-5d462c34.js").then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$e == null ? void 0 : __nuxt_page_meta$e.name) ?? "projects",
@@ -669,7 +669,7 @@ const _routes = [
     meta: __nuxt_page_meta$e,
     alias: (__nuxt_page_meta$e == null ? void 0 : __nuxt_page_meta$e.alias) || [],
     redirect: (__nuxt_page_meta$e == null ? void 0 : __nuxt_page_meta$e.redirect) || void 0,
-    component: () => import("./_nuxt/index-b7f47172.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/index-b765df84.js").then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$d == null ? void 0 : __nuxt_page_meta$d.name) ?? "redirect-page",
@@ -759,7 +759,7 @@ const _routes = [
     meta: __nuxt_page_meta$4,
     alias: (__nuxt_page_meta$4 == null ? void 0 : __nuxt_page_meta$4.alias) || [],
     redirect: (__nuxt_page_meta$4 == null ? void 0 : __nuxt_page_meta$4.redirect) || void 0,
-    component: () => import("./_nuxt/add-2e5bb1ce.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/add-c835cc0c.js").then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$3 == null ? void 0 : __nuxt_page_meta$3.name) ?? "user-groups",
