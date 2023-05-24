@@ -51,7 +51,7 @@ if (navigator.connection) {
 
 if (id) {
   flaq.redirect_flaq = !flaq.redirect_flaq;
-  await useFetch(`${config.API_BASE_URL}trackingurl/redirect`, {
+  const data = await useAsyncData( 'result', () => useFetch(`${config.API_BASE_URL}trackingurl/redirect`, {
     method: "POST",
     body: {
       id: id,
@@ -61,15 +61,35 @@ if (id) {
       referrer_url: document.referrer,
     },
   })
+   
+  
+  )
+  // console.log(data);
+  // debugger
+  // await useFetch(`${config.API_BASE_URL}trackingurl/redirect`, {
+  //   method: "POST",
+  //   body: {
+  //     id: id,
+  //     tracking_url: fullpath,
+  //     screen_resolution: screenWidth + "x" + screenHeight,
+  //     network_speed: network_speed,
+  //     referrer_url: document.referrer,
+  //   },
+  // })
     .then((result) => {
+    console.log(result);
+    console.log(result.data.value);
+    console.log(result.data.value.data);
+    console.log(result.data.value.data.destination_url);
       if (result.data.value) {
-        redirect.value = result.data.value.redirect;
+        redirect.value = result.data.value.data.redirect;
         // flaq.redirect_flaq = !flaq.redirect_flaq;
-        let destination = result.data.value.destination_url;
+        let destination = result.data.value.data.destination_url;
         if (!destination.includes("http") || !destination.includes("http")) {
           destination = "https://" + destination;
         }
-        window.location.assign(destination);
+        console.log('reached');
+        // window.location.assign(destination);
       }
       if (result.error.value) {
         console.log("error value1", result.error.value.data.message);
