@@ -1,8 +1,26 @@
 import { createRenderer } from 'vue-bundle-renderer/runtime';
-import { eventHandler, setResponseStatus, getQuery, createError } from 'h3';
+import { eventHandler, getQuery, createError } from 'h3';
 import { renderToString } from 'vue/server-renderer';
-import { u as useNitroApp, a as useRuntimeConfig, g as getRouteRules } from './node-server.mjs';
-import { joinURL } from 'ufo';
+import { b as buildAssetsURL, p as publicAssetsURL } from './paths.mjs';
+import { u as useNitroApp, g as getRouteRules } from './node-server.mjs';
+import { u as useRuntimeConfig } from './config.mjs';
+import 'ufo';
+import 'node-fetch-native/polyfill';
+import 'node:http';
+import 'node:https';
+import 'destr';
+import 'ofetch';
+import 'unenv/runtime/fetch/index';
+import 'hookable';
+import 'ohash';
+import 'unstorage';
+import 'defu';
+import 'radix3';
+import 'node:fs';
+import 'node:url';
+import 'pathe';
+import 'axios';
+import 'scule';
 
 function defineRenderHandler(handler) {
   return eventHandler(async (event) => {
@@ -29,7 +47,12 @@ function defineRenderHandler(handler) {
       for (const header in response.headers) {
         event.node.res.setHeader(header, response.headers[header]);
       }
-      setResponseStatus(event, response.statusCode, response.statusMessage);
+      if (response.statusCode) {
+        event.node.res.statusCode = response.statusCode;
+      }
+      if (response.statusMessage) {
+        event.node.res.statusMessage = response.statusMessage;
+      }
     }
     return typeof response.body === "string" ? response.body : JSON.stringify(response.body);
   });
@@ -272,14 +295,6 @@ const appRootId = "__nuxt";
 
 const appRootTag = "div";
 
-function buildAssetsURL(...path) {
-  return joinURL(publicAssetsURL(), useRuntimeConfig().app.buildAssetsDir, ...path);
-}
-function publicAssetsURL(...path) {
-  const publicBase = useRuntimeConfig().app.cdnURL || useRuntimeConfig().app.baseURL;
-  return path.length ? joinURL(publicBase, ...path) : publicBase;
-}
-
 globalThis.__buildAssetsURL = buildAssetsURL;
 globalThis.__publicAssetsURL = publicAssetsURL;
 const getClientManifest = () => import('./client.manifest.mjs').then((r) => r.default || r).then((r) => typeof r === "function" ? r() : r);
@@ -340,9 +355,6 @@ const PAYLOAD_URL_RE = /\/_payload(\.[a-zA-Z0-9]+)?.js(\?.*)?$/;
 const renderer = defineRenderHandler(async (event) => {
   const nitroApp = useNitroApp();
   const ssrError = event.node.req.url?.startsWith("/__nuxt_error") ? getQuery(event) : null;
-  if (ssrError && ssrError.statusCode) {
-    ssrError.statusCode = parseInt(ssrError.statusCode);
-  }
   if (ssrError && event.node.req.socket.readyState !== "readOnly") {
     throw createError("Cannot directly render error page!");
   }
@@ -474,10 +486,5 @@ function splitPayload(ssrContext) {
   };
 }
 
-const renderer$1 = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  default: renderer
-});
-
-export { buildAssetsURL as b, renderer$1 as r };
+export { renderer as default };
 //# sourceMappingURL=renderer.mjs.map

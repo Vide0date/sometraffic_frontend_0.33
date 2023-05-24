@@ -1,4 +1,4 @@
-import { b as buildAssetsURL } from './renderer.mjs';
+import { b as buildAssetsURL } from './paths.mjs';
 
 const _imports_0 = "" + buildAssetsURL("loading.dcdf6543.svg");
 
