@@ -1,5 +1,5 @@
 <template>
-  <Head v-if="redirect?.length > 0">
+  <Head v-if="false && redirect?.length > 0">
     <Title>Some Traffic | {{ redirect[0]?.seo_title }}</Title>
     <!-- Open Graph Meta Tags -->
     <Meta property="og:title" :content="redirect[0]?.seo_title" />
@@ -51,35 +51,115 @@ if (params.id && params.id.length === 7) {
     console.log("Save it.");
   } else {
     console.log("Redirect it or show preview or do nothing.");
-    await useFetch(`${config.API_BASE_URL}trackingurl/get-meta`, {
-      method: "POST",
-      body: {
-        tracking_url: fullpath,
+    const { data: articleData } = await useFetch('articles', {
+  query: {
+    _q: 'how-technology-systems-can-help-property-pros-succeed-in-todays-challenging-market',
+    'populate[seo][populate][description][populate]': '',
+    'populate[seo][populate][og_title][populate]': '',
+    'populate[seo][populate][og_description][populate]': '',
+    'populate[seo][populate][og_image][populate]': '*',
+    'populate[seo][populate][twitter_title][populate]': '',
+    'populate[seo][populate][twitter_description][populate]': '',
+    'populate[seo][populate][twitter_image][populate]': '*',
+    'populate[seo][populate][og_type][populate]': '',
+    'populate[seo][populate][twitter_card][populate]': ''
+  },
+  baseURL: 'https://pvr-prod-strapi-5omau.ondigitalocean.app/api',
+},
+)
+const formatMetaData = (data) => {
+  console.log(data);
+  const description = data.metaDescription
+  const ogTitle = data.metaTitle
+  const ogDescription = data.ogDescription
+  const ogImage = 'https://pvr-prod-assets.ams3.digitaloceanspaces.com/are_we_in_for_ahouse_crash_8bf9af6e2f.png'
+  const twitterTitle = data.twitterTitle
+  const twitterDescription = data.twitterDescription
+  const twitterImage = "https://pvr-prod-assets.ams3.digitaloceanspaces.com/are_we_in_for_ahouse_crash_8bf9af6e2f.png"
+  const ogType = data.ogType
+  const twitterCard = data.twitterCard
+  console.log('description', description);
+  const formattedMetaData = {
+    meta: [
+    {
+        content:description,
+        name: 'description'
       },
-    })
-      .then((result) => {
-        if (result.data.value) {
-          redirect.value = result.data.value;
-          // console.log("Redirect: ", redirect.value);
+      {
+        content: ogTitle,
+        property: 'og:title'
+      },
+      {
+        content: ogImage,
+        property: 'og:image'
+      },
+      {
+        content: ogDescription,
+        property: 'og:description'
+      },
+      {
+        content: twitterTitle,
+        property: 'twitter:title'
+      },
+      {
+        content: twitterImage,
+        property: 'twitter:image'
+      },
+      {
+        content: twitterDescription,
+        property: 'twitter:description'
+      },
+      {
+        property: 'og:type',
+        content: ogType
+      },
+      {
+        content: twitterCard,
+        name: 'twitter:card'
+      }
+    ],
+    title: data.metaTitle
+  }
+  console.log('formated', formattedMetaData);
+  console.log('raw', articleData.value.data[0].attributes.meta);
+  return formattedMetaData
+}
+console.log(formatMetaData(articleData.value.data[0].attributes.seo));
+useHead({
+    ...formatMetaData(articleData.value.data[0].attributes.seo)
+  })
+  // debugger
+    // await useFetch(`${config.API_BASE_URL}trackingurl/get-meta`, {
+    //   baseURL: 'https://pvr-prod-strapi-5omau.ondigitalocean.app/api',
+    //   // method: "POST",
+    //   body: {
+    //     tracking_url: fullpath,
+    //   },
+    // })
+    //   .then((result) => {
+    //     if (result.data.value) {
+    //       redirect.value = result.data.value;
+    //       // console.log("Redirect: ", redirect.value);
 
-          // router.push({
-          //   path: "/_r",
-          //   query: {
-          //     title: result.data.value[0].seo_title,
-          //     description: result.data.value[0].seo_description,
-          //     image: result.data.value[0].seo_image_url,
-          //   },
-          // });
-        }
-        if (result.error.value) {
-          console.log("Error no result", result.error);
-        }
-      })
-      .catch((error) => {
-        console.log("Error useFetch: ", error);
-      });
+    //       // router.push({
+    //       //   path: "/_r",
+    //       //   query: {
+    //       //     title: result.data.value[0].seo_title,
+    //       //     description: result.data.value[0].seo_description,
+    //       //     image: result.data.value[0].seo_image_url,
+    //       //   },
+    //       // });
+    //     }
+    //     if (result.error.value) {
+    //       console.log("Error no result", result.error);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error useFetch: ", error);
+    //   });
   }
   console.log("Redirect: ", redirect);
+
 
   // await useFetch(`${config.API_BASE_URL}trackingurl/redirect`, {
   //   method: "POST",
