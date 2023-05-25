@@ -69,7 +69,7 @@ if (id) {
         if (!destination.includes("http") || !destination.includes("http")) {
           destination = "https://" + destination;
         }
-        // window.location.assign(destination);
+        window.location.assign(destination);
       }
       if (result.error.value) {
         console.log("error value1", result.error.value.data.message);
