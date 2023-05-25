@@ -80,7 +80,7 @@
               >
                 Link to facebook
               </div>
-              <div class="basis-1/3 px-1.5">
+              <div class="basis-1/12 px-1.5">
                 <label
                   class="flex items-center relative w-max cursor-pointer select-none"
                 >
@@ -108,6 +108,11 @@
                     class="w-7 h-7 right-7 absolute rounded-full transform transition-transform bg-gray-200"
                   />
                 </label>
+              </div>
+              <div class="basis-1/3 px-1.5">
+                <a class="rounded-md bg-slate-500 text-white hover:bg-slate-700 transition-colors px-4 py-2 inline-block" href="https://developers.facebook.com/tools/debug" target="_blank" rel="noopener noreferrer">
+                  Debugger
+                </a>
               </div>
             </div>
 
@@ -345,10 +350,10 @@
 <script setup>
 definePageMeta({
   middleware: ["auth"],
-});
-const AWN = inject("$awn");
-const config = useRuntimeConfig();
-const { id } = await useRoute().params;
+})
+const AWN = inject("$awn")
+const config = useRuntimeConfig()
+const { id } = await useRoute().params
 const form = reactive({
   id: id,
   tracking_url: "",
@@ -358,41 +363,41 @@ const form = reactive({
   seo_description: "",
   seo_image_url: "",
   facebook_link: "yes",
-});
+})
 
 const { data: user } = await useFetch(
   `${config.API_BASE_URL}trackingurl/${id}`,
   { key: id }
-);
+)
 
 if (user.value) {
-  form.id = user.value.id;
-  form.tracking_url = user.value.tracking_url;
-  form.destination_url = user.value.destination_url;
-  form.task_id = user.value.task_id;
-  form.seo_title = user.value.seo_title;
-  form.seo_description = user.value.seo_description;
-  form.seo_image_url = user.value.seo_image_url;
-  form.facebook_link = user.value.tracking_url.includes("/f/") ? "yes" : "no";
+  form.id = user.value.id
+  form.tracking_url = user.value.tracking_url
+  form.destination_url = user.value.destination_url
+  form.task_id = user.value.task_id
+  form.seo_title = user.value.seo_title
+  form.seo_description = user.value.seo_description
+  form.seo_image_url = user.value.seo_image_url
+  form.facebook_link = user.value.tracking_url.includes("/f/") ? "yes" : "no"
 }
 
 const handleFbLink = (e) => {
-  facebook_link.value = form.facebook_link === "no" ? "yes" : "no";
+  facebook_link.value = form.facebook_link === "no" ? "yes" : "no"
 
-  const lastIndex = form.tracking_url.lastIndexOf("/");
-  const beforeIdentifier = form.tracking_url.substring(0, lastIndex);
-  const afterIdentifier = form.tracking_url.substring(lastIndex + 1);
+  const lastIndex = form.tracking_url.lastIndexOf("/")
+  const beforeIdentifier = form.tracking_url.substring(0, lastIndex)
+  const afterIdentifier = form.tracking_url.substring(lastIndex + 1)
 
   if (facebook_link.value === "yes") {
     if (!form.tracking_url.includes("/f/")) {
-      form.tracking_url = beforeIdentifier + "/f/" + afterIdentifier;
+      form.tracking_url = beforeIdentifier + "/f/" + afterIdentifier
     }
   } else {
     if (form.tracking_url.includes("/f/")) {
-      form.tracking_url = form.tracking_url.replace("/f/", "/");
+      form.tracking_url = form.tracking_url.replace("/f/", "/")
     }
   }
-};
+}
 
 const updateTrackingURL = async () => {
   const u_data = {
@@ -403,7 +408,7 @@ const updateTrackingURL = async () => {
     seo_title: form.seo_title,
     seo_description: form.seo_description,
     seo_image_url: form.seo_image_url,
-  };
+  }
 
   const { data, error } = await useFetch(
     `${config.API_BASE_URL}trackingurl/update/${id}`,
@@ -412,28 +417,28 @@ const updateTrackingURL = async () => {
       params: { id: id },
       body: u_data,
     }
-  );
+  )
   if (data.value) {
-    await AWN.success(data.value.message);
-    navigateTo("/tracking-url");
+    await AWN.success(data.value.message)
+    navigateTo("/tracking-url")
   }
   if (error.value) {
-    await AWN.alert(error.value.statusMessage);
+    await AWN.alert(error.value.statusMessage)
   }
-};
+}
 const copy = async (id) => {
   // Get the text field
-  let copyText = document.getElementById(id);
+  let copyText = document.getElementById(id)
 
   // Select the text field
-  copyText.select();
-  copyText.setSelectionRange(0, 99999); // For mobile devices
+  copyText.select()
+  copyText.setSelectionRange(0, 99999) // For mobile devices
 
   // Copy the text inside the text field
-  const copied_url = copyText.value;
-  navigator.clipboard.writeText(copied_url);
-  await AWN.success(copied_url + " copied to clipboard!");
-};
+  const copied_url = copyText.value
+  navigator.clipboard.writeText(copied_url)
+  await AWN.success(copied_url + " copied to clipboard!")
+}
 </script>
 
 <style scoped>

@@ -309,16 +309,13 @@ const enterSearch = () => {
 };
 
 const setClickDatas = async () => {
-  const { data: data } = await useFetch(
-    `${config.API_BASE_URL}category-items/all`
-  );
+  if(!localStorage.getItem('activeProject')){
+    setTimeout(async() => {
+      const { data: data } = await useFetch(
+      `${config.API_BASE_URL}category-items/all?projectId=${localStorage.getItem('activeProject')}`
+      );
 
-  // let _data = data;
-  // _data.value.find(v => v.priority.toString() === '1').priority = "high";
-  // _data.value.find(v => v.priority.toString() === '2').priority = "medium";
-  // _data.value.find(v => v.priority.toString() === '3').priority = "low";
-
-  const _data = data.value.reduce((ds, d) => {
+        const _data = data.value.reduce((ds, d) => {
     let newD = d;
     if (d.priority === 1) {
       newD = Object.assign({}, d, { priority: "high" });
@@ -335,6 +332,38 @@ const setClickDatas = async () => {
   clickdatas.value = _data;
   searchdatas.value = _data;
   clickdatasTotal.value = _data.length;
+    }, 500)
+    console.log('timedout');
+  }else {
+    const { data: data } = await useFetch(
+      `${config.API_BASE_URL}category-items/all?projectId=${localStorage.getItem('activeProject')}`
+      );
+      
+        const _data = data.value.reduce((ds, d) => {
+    let newD = d;
+    if (d.priority === 1) {
+      newD = Object.assign({}, d, { priority: "high" });
+    } else if (d.priority === 2) {
+      newD = Object.assign({}, d, { priority: "medium" });
+    } else if (d.priority === 3) {
+      newD = Object.assign({}, d, { priority: "low" });
+    } else {
+      newD = Object.assign({}, d, { priority: "N/A" });
+    }
+    return ds.concat(newD);
+  }, []);
+
+  clickdatas.value = _data;
+  searchdatas.value = _data;
+  clickdatasTotal.value = _data.length;
+    } 
+
+  // let _data = data;
+  // _data.value.find(v => v.priority.toString() === '1').priority = "high";
+  // _data.value.find(v => v.priority.toString() === '2').priority = "medium";
+  // _data.value.find(v => v.priority.toString() === '3').priority = "low";
+
+
 };
 
 const niceFrequencyDisplay = (n) => {

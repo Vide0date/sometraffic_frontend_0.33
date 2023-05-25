@@ -79,7 +79,7 @@
               >
                 Link to facebook
               </div>
-              <div class="basis-1/3 px-1.5">
+              <div class="basis-1/12 px-1.5">
                 <label
                   class="flex items-center relative w-max cursor-pointer select-none"
                 >
@@ -107,6 +107,11 @@
                     class="w-7 h-7 right-7 absolute rounded-full transform transition-transform bg-gray-200"
                   />
                 </label>
+              </div>
+              <div class="basis-1/3 px-1.5">
+                <a class="rounded-md bg-slate-500 text-white hover:bg-slate-700 transition-colors px-4 py-2 inline-block" href="https://developers.facebook.com/tools/debug" target="_blank" rel="noopener noreferrer">
+                  Debugger
+                </a>
               </div>
             </div>
 
