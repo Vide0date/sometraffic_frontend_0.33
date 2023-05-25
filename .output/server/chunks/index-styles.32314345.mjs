@@ -2,7 +2,7 @@ const index_vue_vue_type_style_index_0_scoped_a2329cde_lang = "#users_groups h1[
 
 const index_vue_vue_type_style_index_1_lang = ".modal-vue3-body .text,.modal-vue3-header{color:#000!important}";
 
-const indexStyles_1da4817e = [index_vue_vue_type_style_index_0_scoped_a2329cde_lang, index_vue_vue_type_style_index_1_lang];
+const indexStyles_32314345 = [index_vue_vue_type_style_index_0_scoped_a2329cde_lang, index_vue_vue_type_style_index_1_lang];
 
-export { indexStyles_1da4817e as default };
-//# sourceMappingURL=index-styles.1da4817e.mjs.map
+export { indexStyles_32314345 as default };
+//# sourceMappingURL=index-styles.32314345.mjs.map

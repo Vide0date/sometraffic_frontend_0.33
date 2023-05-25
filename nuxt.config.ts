@@ -48,7 +48,7 @@ export default defineNuxtConfig({
     runtimeConfig: {
         public: {
             BASE_URL: process.env.BASE_URL,
-            API_BASE_URL: 'http://167.172.176.83:1212/api/',
+            API_BASE_URL: 'https://167.172.176.83:1212/api/',
             // API_BASE_URL: 'http://localhost:1212/api/',
             // API_BASE_URL: 'https://backend.sometraffic.com/api/'
             // API_BASE_URL: 'https://backend.remotehub.ai/api/',
