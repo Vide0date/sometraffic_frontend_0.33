@@ -310,7 +310,10 @@ const enterSearch = () => {
 
 const setClickDatas = async () => {
   if(!localStorage.getItem('activeProject')){
-    setTimeout(async() => {
+    let timer = 0
+    const waitForActiveProject = setInterval(async() => {
+      if(localStorage.getItem('activeProject')){
+        clearInterval(waitForActiveProject)
       const { data: data } = await useFetch(
       `${config.API_BASE_URL}category-items/all?projectId=${localStorage.getItem('activeProject')}`
       );
@@ -332,8 +335,13 @@ const setClickDatas = async () => {
   clickdatas.value = _data;
   searchdatas.value = _data;
   clickdatasTotal.value = _data.length;
-    }, 500)
-    console.log('timedout');
+}else {
+  timer+=1
+  if(timer/10 > 5){
+    clearInterval(waitForActiveProject)
+  }
+}
+}, 100)
   }else {
     const { data: data } = await useFetch(
       `${config.API_BASE_URL}category-items/all?projectId=${localStorage.getItem('activeProject')}`

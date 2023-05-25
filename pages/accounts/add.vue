@@ -215,7 +215,10 @@ const createAccount = async () => {
         if (result.data.value) {
           AWN.success(result.data.value.message)
           uniqueUrl.value = ""
-          navigateTo("/accounts")
+          navigateTo("/accounts").then(()=>{
+            const router = useRouter()
+            router.go()
+          })
         }
         if (result.error.value) {
           console.log("error value1", result.error.value.data.message)

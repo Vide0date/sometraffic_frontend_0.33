@@ -220,7 +220,10 @@ const updateAccount = async () => {
   if (data.value) {
     console.log("data value", data.value.message)
     await AWN.success(data.value.message)
-    navigateTo("/accounts")
+    navigateTo("/accounts").then(()=>{
+      const router = useRouter()
+      router.go()
+    })
   }
   if (error.value) {
     await AWN.alert(error.value.statusMessage)

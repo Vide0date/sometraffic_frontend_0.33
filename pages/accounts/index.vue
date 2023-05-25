@@ -337,6 +337,8 @@ const handleDelete = async () => {
   if (data.value) {
     shouldShowDialog.value = false
     await AWN.success(data.value.message)
+    const router = useRouter()
+    router.go()
   }
   if (error.value) {
     shouldShowDialog.value = false

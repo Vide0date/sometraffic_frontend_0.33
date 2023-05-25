@@ -54,9 +54,9 @@
             </div>
           </NuxtLink>
             <div class="flex text-white">
-              <p class="font-bold text-xl">Account</p>
+              <p v-if="user.userType === 'Administrator' || user.userType === 'administrator'" class="font-bold text-xl">Account</p>
             </div>
-            <div class="flex mt-4">
+            <div v-if="user.userType === 'Administrator' || user.userType === 'administrator'" class="flex mt-4">
                   <div class="basis-full  ">
                     <div id="account-selector" class="relative">
               <div @click="showAccountsList = !showAccountsList" class="rounded-md cursor-pointer relative flex bg-white p-3 w-3/5 text-black">
@@ -67,7 +67,7 @@
   </g>
                 </svg></span>
               </div>
-              <div v-show="showAccountsList" class="absolute overflow-y-auto max-h-96 -right-2 top-0  flex flex-col gap-y-4 bg-white rounded-md p-4 text-black">
+              <div v-show="showAccountsList" class="absolute z-10 overflow-y-auto max-h-96 -right-2 top-0  flex flex-col gap-y-4 bg-white rounded-md p-4 text-black">
                 <div class="flex flex-col gap-y-2" v-for="(account, index) in accounts" :key="account.id">
                   <button type="button" @click="setAccount(account.id)">{{ account.name }}</button>
                   <hr :class="{ 'border-black': index + 1 === accounts.length }">
@@ -79,10 +79,10 @@
             </div>
             </div>
                 </div>
-                <div class="flex my-4 text-white">
+                <div v-if="user.userType === 'Administrator' || user.userType === 'administrator'" class="flex my-4 text-white">
                   <p class="font-bold text-xl">Project</p>
                 </div>
-                <div id="project-selector" class="relative mb-8">
+                <div v-if="user.userType === 'Administrator' || user.userType === 'administrator'" id="project-selector" class="relative mb-8">
             <div @click="projects.length ? showProjectsList = !showProjectsList : navigateTo('/projects/add')" class="rounded-md cursor-pointer relative flex bg-white p-3 w-3/5 text-black">
               <button>{{projects.length ? projects.find(project => project.id === parseInt(activeProject)).name : 'Create first project'}}</button>
               <span v-if="projects.length" :class="{'rotate-180':showProjectsList}" class="absolute right-3 top-1/2 -translate-y-1"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="24px" height="14px" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
