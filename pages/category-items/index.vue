@@ -309,13 +309,13 @@ const enterSearch = () => {
 };
 
 const setClickDatas = async () => {
-  if(!localStorage.getItem('activeProject')){
+  if(!localStorage.getItem('activeAccount')){
     let timer = 0
     const waitForActiveProject = setInterval(async() => {
-      if(localStorage.getItem('activeProject')){
+      if(localStorage.getItem('activeAccount')){
         clearInterval(waitForActiveProject)
       const { data: data } = await useFetch(
-      `${config.API_BASE_URL}category-items/all?projectId=${localStorage.getItem('activeProject')}`
+      `${config.API_BASE_URL}category-items/all?accountId=${localStorage.getItem('activeAccount')}`
       );
 
         const _data = data.value.reduce((ds, d) => {
@@ -344,7 +344,7 @@ const setClickDatas = async () => {
 }, 100)
   }else {
     const { data: data } = await useFetch(
-      `${config.API_BASE_URL}category-items/all?projectId=${localStorage.getItem('activeProject')}`
+      `${config.API_BASE_URL}category-items/all?accountId=${localStorage.getItem('activeAccount')}`
       );
       
         const _data = data.value.reduce((ds, d) => {

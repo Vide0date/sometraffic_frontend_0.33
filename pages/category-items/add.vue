@@ -976,7 +976,7 @@ const checkUrl = async (link) => {
   isLoading.value = true;
   if (isValidUrl(link)) {
     AWN.asyncBlock(
-      useFetch(`${config.API_BASE_URL}category-items/all/?url=${link}&projectId=${localStorage.getItem('activeProject')}`),
+      useFetch(`${config.API_BASE_URL}category-items/all/?url=${link}&accountId=${localStorage.getItem('activeAccount')}`),
       (resp) => {
         isLoading.value = false;
         if (resp.data && resp.data.value.length) {
