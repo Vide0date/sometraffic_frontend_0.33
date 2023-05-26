@@ -103,6 +103,7 @@
                 </div>
                 <div class="col-span-9">
                   <input
+                    class="outline-none"
                     type="text"
                     id="url_1_link"
                     v-model="form.url_1_link"
@@ -975,7 +976,7 @@ const checkUrl = async (link) => {
   isLoading.value = true;
   if (isValidUrl(link)) {
     AWN.asyncBlock(
-      useFetch(`${config.API_BASE_URL}category-items/all/?url=${link}`),
+      useFetch(`${config.API_BASE_URL}category-items/all/?url=${link}&projectId=${localStorage.getItem('activeProject')}`),
       (resp) => {
         isLoading.value = false;
         if (resp.data && resp.data.value.length) {
@@ -1025,11 +1026,32 @@ const saveDefaultPriority = async (id) => {
 };
 
 const setClickDatas = async () => {
-  const activeProject = parseInt(localStorage.getItem('activeProject'))
-  const { data: data } = await useFetch(
-    `${config.API_BASE_URL}groups/all?ProjectId=${activeProject}`
-  );
-  clickdatas.value = data.value;
+  if(!localStorage.getItem('activeProject')) {
+    let timer = 0
+    const waitForActiveProject = setInterval(async () => {
+      if (localStorage.getItem('activeProject')) {
+        clearInterval(waitForActiveProject)
+        const activeProject = parseInt(localStorage.getItem('activeProject'))
+        const { data: data } = await useFetch(
+          `${config.API_BASE_URL}groups/all?ProjectId=${activeProject}`
+        );
+        clickdatas.value = data.value;
+
+      } else {
+        timer += 1
+        if (timer / 10 > 5) {
+          clearInterval(waitForActiveProject)
+        }
+      }
+    }, 100)
+  } else {
+    const activeProject = parseInt(localStorage.getItem('activeProject'))
+    const { data: data } = await useFetch(
+      `${config.API_BASE_URL}groups/all?ProjectId=${activeProject}`
+    );
+    clickdatas.value = data.value;
+
+  }
 };
 
 onBeforeMount(setClickDatas);

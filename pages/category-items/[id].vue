@@ -126,6 +126,7 @@
                 </div>
                 <div class="col-span-9">
                   <input
+                    class="outline-none"
                     type="text"
                     id="url_1_link"
                     v-model="form.url_1_link"
@@ -906,16 +907,33 @@ const updateCategoryItem = async () => {
     await AWN.alert(error.value.statusMessage);
   }
 };
+function isValidUrl(urlString) {
+  let urlPattern = new RegExp(
+    "^(https?:\\/\\/)?" + // validate protocol
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // validate domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // validate OR ip (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // validate port and path
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + // validate query string
+      "(\\#[-a-z\\d_]*)?$",
+    "i"
+  ); // validate fragment locator
+
+  return !!urlPattern.test(urlString);
+}
 
 const checkUrl = async (link) => {
   isLoading.value = true;
   if (isValidUrl(link)) {
     AWN.asyncBlock(
-      useFetch(`${config.API_BASE_URL}category-items/all/?url=${link}`),
+      useFetch(`${config.API_BASE_URL}category-items/all/?url=${link}&projectId=${localStorage.getItem('activeProject')}`),
       (resp) => {
         isLoading.value = false;
         if (resp.data && resp.data.value.length) {
-          uniqueUrl.value = "invalid";
+          if(resp.data.value[0].unique_identifier === id){
+            uniqueUrl.value = "valid";
+          }else{
+            uniqueUrl.value = "invalid";
+          }
         } else {
           uniqueUrl.value = "valid";
         }
@@ -944,11 +962,31 @@ const copy = async (id) => {
 };
 
 const setClickDatas = async () => {
-  const activeProject = parseInt(localStorage.getItem('activeProject'))
-  const { data: data } = await useFetch(
-    `${config.API_BASE_URL}groups/all?ProjectId=${activeProject}`
-  );
-  clickdatas.value = data.value;
+  if(!localStorage.getItem('activeProject')) {
+    let timer = 0
+    const waitForActiveProject = setInterval(async () => {
+      if (localStorage.getItem('activeProject')) {
+        clearInterval(waitForActiveProject)
+        const activeProject = parseInt(localStorage.getItem('activeProject'))
+        const { data: data } = await useFetch(
+          `${config.API_BASE_URL}groups/all?ProjectId=${activeProject}`
+        );
+        clickdatas.value = data.value;
+
+      } else {
+        timer += 1
+        if (timer / 10 > 5) {
+          clearInterval(waitForActiveProject)
+        }
+      }
+    }, 100)
+  } else {
+    const activeProject = parseInt(localStorage.getItem('activeProject'))
+    const { data: data } = await useFetch(
+      `${config.API_BASE_URL}groups/all?ProjectId=${activeProject}`
+    );
+    clickdatas.value = data.value;
+  }
 };
 
 onBeforeMount(setClickDatas);
