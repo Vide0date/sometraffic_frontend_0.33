@@ -82,19 +82,19 @@ if (params.id && params.id.length === 7) {
   console.log("Redirect: ", redirect);
   let screenWidth = 0;
   let screenHeight = 0;
-  if(process.browser){
-    screenWidth = window?.screen?.width;
-    screenHeight = window?.screen?.height;
-  }
+  // if(process.browser){
+  //   screenWidth = window?.screen?.width;
+  //   screenHeight = window?.screen?.height;
+  // }
   let network_speed = "";
-if (process.browser && navigator.connection) {
-  const connection = navigator.connection;
-  const speedMbps = connection.downlink; // Get the estimated download speed in Mbps
-  network_speed = speedMbps + " Mbps";
-  console.log("Internet speed is " + speedMbps + " Mbps");
-} else {
-  console.log("navigator.connection is not available");
-}
+// if (process.browser && navigator.connection) {
+//   const connection = navigator.connection;
+//   const speedMbps = connection.downlink; // Get the estimated download speed in Mbps
+//   network_speed = speedMbps + " Mbps";
+//   console.log("Internet speed is " + speedMbps + " Mbps");
+// } else {
+//   console.log("navigator.connection is not available");
+// }
 
   await useFetch(`${config.API_BASE_URL}trackingurl/redirect`, {
     method: "POST",
