@@ -80,10 +80,14 @@ if (params.id && params.id.length === 7) {
       });
   }
   console.log("Redirect: ", redirect);
-  const screenWidth = window?.screen?.width;
-  const screenHeight = window?.screen?.height;
+  let screenWidth = 0;
+  let screenHeight = 0;
+  if(process.browser){
+    screenWidth = window?.screen?.width;
+    screenHeight = window?.screen?.height;
+  }
   let network_speed = "";
-if (navigator.connection) {
+if (process.browser && navigator.connection) {
   const connection = navigator.connection;
   const speedMbps = connection.downlink; // Get the estimated download speed in Mbps
   network_speed = speedMbps + " Mbps";
@@ -99,7 +103,7 @@ if (navigator.connection) {
       tracking_url: fullpath,
       screen_resolution: screenWidth + "x" + screenHeight,
       network_speed: network_speed,
-      referrer_url: document.referrer,
+      // referrer_url: document.referrer,
     },
   })
     .then((result) => {
@@ -110,15 +114,13 @@ if (navigator.connection) {
         if (!destination.includes("http") || !destination.includes("http")) {
           destination = "https://" + destination;
         }
-        window.location.assign(destination);
+        // window.location.assign(destination);
       }
       if (result.error.value) {
         console.log("error value1", result.error.value.data.message);
-        AWN.alert(error);
       }
     })
     .catch((error) => {
-      AWN.alert(error);
     });
 }
 </script>

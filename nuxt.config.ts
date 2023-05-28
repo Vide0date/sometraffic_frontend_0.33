@@ -9,7 +9,7 @@ export default defineNuxtConfig({
 
         // Render these routes on the client (SPA)
         // '/r/**': { ssr: true },
-        '/f/**': { ssr: true },
+        '/f/:id': { ssr: true },
         '/logins/**': { ssr: false },
         '/dashboard/**': { ssr: false },
         '/users/**': { ssr: false },
@@ -22,6 +22,7 @@ export default defineNuxtConfig({
         '/user-groups/**': { ssr: false },
         '/redirecting/**': { ssr: false },
         '/**': { ssr: false },
+        '/:id': { ssr: true },
     },
     modules: [
         '@nuxtjs/tailwindcss',
