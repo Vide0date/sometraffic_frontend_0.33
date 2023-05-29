@@ -36,7 +36,7 @@ const config = useRuntimeConfig();
 const params = route.params;
 const query = route.query;
 const redirect = ref([]);
-const destination = ref("") 
+const destination = ref("");
 // const screenWidth = screen.width;
 // const screenHeight = screen.height;
 
@@ -60,7 +60,7 @@ if (params.id && params.id.length === 7) {
       .then((result) => {
         if (result.data.value) {
           redirect.value = result.data.value;
-          destination.value = result.data.value[0].destination_url
+          destination.value = result.data.value[0].destination_url;
 
           // router.push({
           //   path: "/_r",
@@ -78,47 +78,46 @@ if (params.id && params.id.length === 7) {
       .catch((error) => {
         console.log("Error useFetch: ", error);
       });
+
+    await useFetch(`${config.API_BASE_URL}trackingurl/redirect`, {
+      method: "POST",
+      body: {
+        id: params.id,
+        tracking_url: fullpath,
+        screen_resolution: "unknown" + "x" + "unknown",
+        network_speed: "",
+        referrer_url: query.fbclid ? "https://facebook.com" : "",
+      },
+    })
+      .then((result) => {
+        if (result.data.value) {
+          console.log("Destination: ", result.data.value.destination_url);
+          redirect.value = result.data.value.redirect;
+          let destination = result.data.value.destination_url;
+          if (!destination.includes("http") || !destination.includes("http")) {
+            destination = "https://" + destination;
+          }
+          // if (query.fbclid) {
+          //   router.push({
+          //     path: "/_r",
+          //     query: {
+          //       destination,
+          //     },
+          //   });
+          // }
+        }
+        if (result.error.value) {
+          console.log("Error no result", result.error);
+        }
+      })
+      .catch((error) => {
+        console.log("Error useFetch: ", error);
+      });
   }
   console.log("Redirect: ", redirect);
-  // await useFetch(`${config.API_BASE_URL}trackingurl/redirect`, {
-  //   method: "POST",
-  //   body: {
-  //     id: params.id,
-  //     tracking_url: fullpath,
-  //     screen_resolution: screenWidth + "x" + screenHeight,
-  //     network_speed: "",
-  //     referrer_url: query.fbclid ? "https://facebook.com" : "",
-  //   },
-  // })
-  //   .then((result) => {
-  //     if (result.data.value) {
-  //     console.log("Destination: ", result.data.value.destination_url);
-  //       redirect.value = result.data.value.redirect;
-  //       let destination = result.data.value.destination_url;
-  //       if (!destination.includes("http") || !destination.includes("http")) {
-  //         destination = "https://" + destination;
-  //       }
-  //       if (query.fbclid) {
-  //         router.push({
-  //           path: "/_r",
-  //           query: {
-  //             destination,
-  //           },
-  //         });
-  //       }
-  //     }
-  //     if (result.error.value) {
-  //       console.log("Error no result", result.error);
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.log("Error useFetch: ", error);
-  //   });
-  
 }
 
 onMounted(() => {
   window.location.assign(destination.value);
 });
-
 </script>
