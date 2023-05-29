@@ -22,7 +22,7 @@ export default defineNuxtConfig({
         '/user-groups/**': { ssr: false },
         '/redirecting/**': { ssr: false },
         '/**': { ssr: false },
-        '/:id': { ssr: true },
+        // '/:id': { ssr: true },
     },
     modules: [
         '@nuxtjs/tailwindcss',

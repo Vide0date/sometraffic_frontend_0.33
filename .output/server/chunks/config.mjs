@@ -1,7 +1,7 @@
 import destr from 'destr';
 import { snakeCase } from 'scule';
 
-const _runtimeConfig = {"app":{"baseURL":"/","buildAssetsDir":"/_nuxt/","cdnURL":""},"nitro":{"envPrefix":"NUXT_","routeRules":{"/__nuxt_error":{"cache":false},"/f/:id":{"ssr":true},"/logins/**":{"ssr":false},"/dashboard/**":{"ssr":false},"/users/**":{"ssr":false},"/category-items/**":{"ssr":false},"/information-items/**":{"ssr":false},"/tasks/**":{"ssr":false},"/tracking-url/**":{"ssr":false},"/emails/**":{"ssr":false},"/click-list/**":{"ssr":false},"/user-groups/**":{"ssr":false},"/redirecting/**":{"ssr":false},"/**":{"ssr":false},"/:id":{"ssr":true},"/_nuxt/**":{"headers":{"cache-control":"public, max-age=2592000, immutable"}}}},"public":{"BASE_URL":"https://remotehub.ai","API_BASE_URL":"https://backend.remotehub.ai/api/"}};
+const _runtimeConfig = {"app":{"baseURL":"/","buildAssetsDir":"/_nuxt/","cdnURL":""},"nitro":{"envPrefix":"NUXT_","routeRules":{"/__nuxt_error":{"cache":false},"/f/:id":{"ssr":true},"/logins/**":{"ssr":false},"/dashboard/**":{"ssr":false},"/users/**":{"ssr":false},"/category-items/**":{"ssr":false},"/information-items/**":{"ssr":false},"/tasks/**":{"ssr":false},"/tracking-url/**":{"ssr":false},"/emails/**":{"ssr":false},"/click-list/**":{"ssr":false},"/user-groups/**":{"ssr":false},"/redirecting/**":{"ssr":false},"/**":{"ssr":false},"/_nuxt/**":{"headers":{"cache-control":"public, max-age=2592000, immutable"}}}},"public":{"BASE_URL":"https://remotehub.ai","API_BASE_URL":"https://backend.remotehub.ai/api/"}};
 const ENV_PREFIX = "NITRO_";
 const ENV_PREFIX_ALT = _runtimeConfig.nitro.envPrefix ?? process.env.NITRO_ENV_PREFIX ?? "_";
 const getEnv = (key) => {
