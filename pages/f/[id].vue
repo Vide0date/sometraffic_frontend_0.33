@@ -79,7 +79,11 @@ if (params.id && params.id.length === 7) {
         console.log("Error useFetch: ", error);
       });
 
-    await useFetch(`${config.API_BASE_URL}trackingurl/redirect`, {
+    
+  }
+  console.log("Redirect: ", redirect);
+}
+await useFetch(`${config.API_BASE_URL}trackingurl/redirect`, {
       method: "POST",
       body: {
         id: params.id,
@@ -113,10 +117,6 @@ if (params.id && params.id.length === 7) {
       .catch((error) => {
         console.log("Error useFetch: ", error);
       });
-  }
-  console.log("Redirect: ", redirect);
-}
-
 onMounted(() => {
   window.location.assign(destination.value);
 });
