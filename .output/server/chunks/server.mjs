@@ -596,7 +596,7 @@ const _routes = [
     meta: __nuxt_page_meta$m,
     alias: (__nuxt_page_meta$m == null ? void 0 : __nuxt_page_meta$m.alias) || [],
     redirect: (__nuxt_page_meta$m == null ? void 0 : __nuxt_page_meta$m.redirect) || void 0,
-    component: () => import('./_id_-d1777329.mjs').then((m) => m.default || m)
+    component: () => import('./_id_-1c0e65e0.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$l == null ? void 0 : __nuxt_page_meta$l.name) ?? "index",

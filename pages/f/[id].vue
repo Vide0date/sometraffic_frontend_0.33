@@ -61,6 +61,9 @@ if (params.id && params.id.length === 7) {
         if (result.data.value) {
           redirect.value = result.data.value;
           destination.value = result.data.value[0].destination_url;
+          if (!destination.value.includes("http") || !destination.value.includes("https")) {
+            destination.value = "https://" + destination.value;
+          }
 
           // router.push({
           //   path: "/_r",
