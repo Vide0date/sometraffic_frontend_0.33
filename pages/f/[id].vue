@@ -94,13 +94,13 @@ await useFetch(`${config.API_BASE_URL}trackingurl/redirect`, {
       },
     })
       .then((result) => {
-        if (result.data.value) {
-          console.log("Destination: ", result.data.value.destination_url);
-          redirect.value = result.data.value.redirect;
-          let destination = result.data.value.destination_url;
-          if (!destination.includes("http") || !destination.includes("http")) {
-            destination = "https://" + destination;
-          }
+        // if (result.data.value) {
+          // console.log("Destination: ", result.data.value.destination_url);
+          // redirect.value = result.data.value.redirect;
+          // let destination = result.data.value.destination_url;
+          // if (!destination.includes("http") || !destination.includes("http")) {
+          //   destination = "https://" + destination;
+          // }
           // if (query.fbclid) {
           //   router.push({
           //     path: "/_r",
@@ -109,10 +109,10 @@ await useFetch(`${config.API_BASE_URL}trackingurl/redirect`, {
           //     },
           //   });
           // }
-        }
-        if (result.error.value) {
-          console.log("Error no result", result.error);
-        }
+        // }
+        // if (result.error.value) {
+        //   console.log("Error no result", result.error);
+        // }
       })
       .catch((error) => {
         console.log("Error useFetch: ", error);

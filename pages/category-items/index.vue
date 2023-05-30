@@ -104,10 +104,10 @@
           <thead class="bg-black/60">
             <tr>
               <th class="text-left py-3 px-2">Item ID</th>
+              <th class="text-left py-3 px-2 title-th">Title</th>
               <th class="text-left py-3 px-2">Category</th>
               <th class="text-left py-3 px-2">Priority</th>
               <th class="text-left py-3 px-2">Group</th>
-              <th class="text-left py-3 px-2 title-th">Title</th>
               <!-- <th class="text-left py-3 px-2">Priority</th>
               <th class="text-left py-3 px-2">Visibility</th>
               <th class="text-left py-3 px-2">Frequency (hrs)</th> -->
@@ -129,12 +129,12 @@
                   {{ clickdata?.unique_identifier }}
                 </NuxtLink>
               </td>
+              <td class="py-3 px-2 title-td">{{ clickdata?.item_title }}</td>
               <td class="py-3 px-2 capitalize">{{ clickdata?.category }}</td>
               <td class="py-3 px-2 capitalize">{{ clickdata?.priority }}</td>
               <td class="py-3 px-2 capitalize">
                 {{ clickdata?.Users_Group?.name }}
               </td>
-              <td class="py-3 px-2 title-td">{{ clickdata?.item_title }}</td>
               <!-- <td class="py-3 px-2 capitalize">{{ clickdata?.priority }}</td>
               <td class="py-3 px-2 capitalize">{{ clickdata?.visibility }}</td>
               <td class="py-3 px-2">
