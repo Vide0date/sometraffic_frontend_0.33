@@ -61,7 +61,10 @@ if (params.id && params.id.length === 7) {
         if (result.data.value) {
           redirect.value = result.data.value;
           destination.value = result.data.value[0].destination_url;
-          if (!destination.value.includes("http") || !destination.value.includes("https")) {
+          if (
+            !destination.value.includes("http") ||
+            !destination.value.includes("https")
+          ) {
             destination.value = "https://" + destination.value;
           }
 
@@ -86,41 +89,34 @@ if (params.id && params.id.length === 7) {
   }
   console.log("Redirect: ", redirect);
 }
-await useFetch(`${config.API_BASE_URL}trackingurl/redirect`, {
+onMounted(async () => {
+    const screenWidth = screen.width;
+    const screenHeight = screen.height;
+    let network_speed = "";
+    if (navigator.connection) {
+      const connection = navigator.connection;
+      const speedMbps = connection.downlink; // Get the estimated download speed in Mbps
+      network_speed = speedMbps + " Mbps";
+      console.log("Internet speed is " + speedMbps + " Mbps");
+    } else {
+      console.log("navigator.connection is not available");
+    }
+
+    await useLazyAsyncData("mountains", () => _);
+
+    await useFetch(`${config.API_BASE_URL}trackingurl/redirect`, {
       method: "POST",
       body: {
         id: params.id,
         tracking_url: fullpath,
-        screen_resolution: "unknown" + "x" + "unknown",
-        network_speed: "",
-        referrer_url: query.fbclid ? "https://facebook.com" : "",
+        screen_resolution: screenWidth + "x" + screenHeight,
+        network_speed,
+        referrer_url: document.referrer,
       },
     })
-      .then((result) => {
-        // if (result.data.value) {
-          // console.log("Destination: ", result.data.value.destination_url);
-          // redirect.value = result.data.value.redirect;
-          // let destination = result.data.value.destination_url;
-          // if (!destination.includes("http") || !destination.includes("http")) {
-          //   destination = "https://" + destination;
-          // }
-          // if (query.fbclid) {
-          //   router.push({
-          //     path: "/_r",
-          //     query: {
-          //       destination,
-          //     },
-          //   });
-          // }
-        // }
-        // if (result.error.value) {
-        //   console.log("Error no result", result.error);
-        // }
-      })
       .catch((error) => {
         console.log("Error useFetch: ", error);
       });
-onMounted(() => {
   window.location.assign(destination.value);
 });
 </script>

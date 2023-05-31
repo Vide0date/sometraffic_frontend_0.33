@@ -285,7 +285,90 @@
             </div>
 
             <div>
-  
+              
+              <div class="flex flex-row py-2 mt-4">
+  <div
+    class="basis-1/3 flex items-center text-sm font-medium text-gray-700"
+  >
+    Project
+    <svg
+      v-tooltip.right="{
+        content: `<div>You should try to create some projects to organise the Items in. When you get clicks, you can see how many clicks there were from specific projects created by you.<br />
+            Example for remote working projects: Freelancers, Work from Home, Digital Nomad. You will learn over time what projects give you the most clicks per post. <br />
+            We advise to use 4-6 projects per project.</div>`,
+        html: true,
+      }"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-6 h-6 ml-2 text-gray-800"
+      style="display: inline-block"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+      />
+    </svg>
+    <div
+      class="basis-1/2 flex items-center text-sm font-medium text-gray-700 pl-3"
+    >
+      <button
+        type="button"
+        :disabled="form.project === null"
+        @click="(event) => saveDefaultProject(form.project)"
+        class="bg-[#bcbcbc] rounded-md border border-transparent py-1 px-4 text-sm font-medium text-black disabled:text-gray-500"
+      >
+        Store as default
+      </button>
+      <svg
+        v-tooltip.right="{
+          content:
+            '<div>The value that is selected here on the right becomes the default value when you press the “store as default”button. <br />The next time that you create a new category item, This value will be automatically selected for you. </div>',
+          html: true,
+        }"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6 ml-2 text-gray-800"
+        style="display: inline-block"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+        />
+      </svg>
+    </div>
+  </div>
+  <div class="basis-3/4">
+    <div id="form-project-selector" class="relative">
+    <div @click="showProjectsList = !showProjectsList" class="rounded-md cursor-pointer relative flex bg-white p-3 w-3/5 text-black">
+      <button type="button">{{ projects.length ? projects.find(project => project.id === form.project) ? projects.find(project => project.id === form.project).name : 'select project' : 'select project' }}</button>
+      <span :class="{ 'rotate-180': showProjectsList }" class="absolute right-3 top-1/2 -translate-y-1"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="24px" height="14px" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
+<g id="Rounded_Rectangle_33_copy_4_1_">
+
+<path d="M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937   c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937   c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z"/>
+</g>
+      </svg></span>
+    </div>
+    <div v-show="showProjectsList" class="absolute overflow-y-auto max-h-96 -right-2 top-0  flex flex-col gap-y-4 bg-white rounded-md p-4 text-black">
+      <div class="flex flex-col gap-y-2" v-for="(project, index) in projects" :key="project.id">
+        <button type="button" @click="setProject(project.id)">{{ project.name }}</button>
+        <hr :class="{ 'border-black': index + 1 === projects.length }">
+      </div>
+      <button type="button" class="text-center cursor-pointer" @click="navigateTo('/user-projects/add'); showProjectsList = false;">+ Add a project</button>
+      <hr>
+      <button type="button" class="text-center cursor-pointer" @click="navigateTo('/user-projects'); showProjectsList = false;">View projects list</button>
+    </div>
+  </div>
+</div>
+</div>
+
               <div class="flex flex-row py-2 mt-4">
                 <div
                   class="basis-1/3 flex items-center text-sm font-medium text-gray-700"
@@ -347,25 +430,25 @@
                 </div>
                 <div class="basis-3/4">
                   <div id="group-selector" class="relative">
-            <div @click="showProjectsList = !showProjectsList" class="rounded-md cursor-pointer relative flex bg-white p-3 w-3/5 text-black">
-              <button type="button">{{clickdatas.length ? clickdatas.find(group => group.id === form.group) ? clickdatas.find(group => group.id === form.group).name : 'select group' :''}}</button>
-              <span :class="{'rotate-180':showProjectsList}" class="absolute right-3 top-1/2 -translate-y-1"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="24px" height="14px" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
-<g id="Rounded_Rectangle_33_copy_4_1_">
-	<path d="M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937   c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937   c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z"/>
-</g>
-              </svg></span>
-            </div>
-            <div v-show="showProjectsList" class="absolute overflow-y-auto max-h-96 -right-2 top-0  flex flex-col gap-y-4 bg-white rounded-md p-4 text-black">
-              <div class="flex flex-col gap-y-2" v-for="(group, index) in clickdatas" :key="group.id">
-                <button type="button" @click="setGroup(group.id)">{{group.name}}</button>
-                <hr :class="{'border-black': index + 1 === clickdatas.length}">
+                  <div @click="showGroupsList = !showGroupsList" class="rounded-md cursor-pointer relative flex bg-white p-3 w-3/5 text-black">
+                    <button type="button">{{ groups.length ? groups.find(group => group.id === form.group) ? groups.find(group => group.id === form.group).name : 'select group' : 'select group' }}</button>
+                    <span :class="{ 'rotate-180': showGroupsList }" class="absolute right-3 top-1/2 -translate-y-1"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="24px" height="14px" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
+      <g id="Rounded_Rectangle_33_copy_4_1_">
+        <path d="M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937   c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937   c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z"/>
+      </g>
+                    </svg></span>
+                  </div>
+                  <div v-show="showGroupsList" class="absolute overflow-y-auto max-h-96 -right-2 top-0  flex flex-col gap-y-4 bg-white rounded-md p-4 text-black">
+                    <div class="flex flex-col gap-y-2" v-for="(group, index) in groups" :key="group.id">
+                      <button type="button" @click="setGroup(group.id)">{{ group.name }}</button>
+                      <hr :class="{ 'border-black': index + 1 === groups.length }">
+                    </div>
+                    <button type="button" class="text-center cursor-pointer" @click="navigateTo('/user-groups/add'); showGroupsList = false;">+ Add a group</button>
+                    <hr>
+                    <button type="button" class="text-center cursor-pointer" @click="navigateTo('/user-groups'); showGroupsList = false;">View groups list</button>
+                  </div>
+                </div>
               </div>
-              <button type="button" class="text-center cursor-pointer" @click="navigateTo('/user-groups/add'); showProjectsList = false;">+ Add a group</button>
-              <hr>
-              <button type="button" class="text-center cursor-pointer" @click="navigateTo('/user-groups'); showProjectsList = false;">View groups list</button>
-            </div>
-          </div>
-          </div>
               </div>
 
               <div class="flex flex-row py-2">
@@ -822,17 +905,28 @@ const AWN = inject("$awn");
 const config = useRuntimeConfig();
 
 const shouldShowDialog = ref(false);
-const clickdatas = ref([]);
+const projects = ref([]);
+const groups = ref([]);
 const showProjectsList = ref(false);
+const showGroupsList = ref(false);
 
 const setGroup = (id) => {
-  showProjectsList.value = false;
+  showGroupsList.value = false;
   form.group = id
+}
+
+const setProject = async (id) => {
+  showProjectsList.value = false;
+  form.project = id
+  await setGroups()
+
+  form.group = groups.value.length ? groups.value[0].id : null 
 }
 
 // const defUser = JSON.parse(localStorage.getItem("user"));
 let defaultCategory = localStorage.getItem("sometraffic_default_category");
 let defaultGroup = parseInt(localStorage.getItem("sometraffic_default_group"));
+let defaultProject = parseInt(localStorage.getItem("activeProject"));
 let defaultPriority = localStorage.getItem("sometraffic_default_priority");
 let local_data = localStorage.getItem("user");
 
@@ -874,6 +968,7 @@ const form = reactive({
   url_2_link: "",
   plan_frequency: null,
   automatic_status: null,
+  project: defaultProject ? defaultProject : null
 });
 
 const createCategoryItem = async () => {
@@ -1014,7 +1109,7 @@ const saveDefault = async (id) => {
 };
 const saveDefaultGroup = async (id) => {
   localStorage.setItem("sometraffic_default_group", id);
-  await AWN.success(`Standard group set to ${clickdatas.value.find(group => group.id === id).name}.`);
+  await AWN.success(`Standard group set to ${groups.value.find(group => group.id === id).name}.`);
 };
 const saveDefaultPriority = async (id) => {
   localStorage.setItem("sometraffic_default_priority", id);
@@ -1025,7 +1120,8 @@ const saveDefaultPriority = async (id) => {
   );
 };
 
-const setClickDatas = async () => {
+const setGroups = async () => {
+  console.log('set groups');
   if(!localStorage.getItem('activeProject')) {
     let timer = 0
     const waitForActiveProject = setInterval(async () => {
@@ -1033,9 +1129,9 @@ const setClickDatas = async () => {
         clearInterval(waitForActiveProject)
         const activeProject = parseInt(localStorage.getItem('activeProject'))
         const { data: data } = await useFetch(
-          `${config.API_BASE_URL}groups/all?ProjectId=${activeProject}`
+          `${config.API_BASE_URL}groups/all?ProjectId=${form.project}`
         );
-        clickdatas.value = data.value;
+        groups.value = data.value;
 
       } else {
         timer += 1
@@ -1047,17 +1143,42 @@ const setClickDatas = async () => {
   } else {
     const activeProject = parseInt(localStorage.getItem('activeProject'))
     const { data: data } = await useFetch(
-      `${config.API_BASE_URL}groups/all?ProjectId=${activeProject}`
+      `${config.API_BASE_URL}groups/all?ProjectId=${form.project}`
     );
-    clickdatas.value = data.value;
+    groups.value = data.value;
 
   }
 };
+const activeAccount = ref(
+  localStorage.getItem("activeAccount")
+)
 
-onBeforeMount(setClickDatas);
+const setProjects = async () => {
+  const { data: data } = await useFetch(
+    `${config.API_BASE_URL}projects/all?AccountId=${activeAccount.value}`
+  )
+  projects.value = data.value
+}
+
+onBeforeMount(setProjects);
+onBeforeMount(setGroups);
 onBeforeMount(getTrackingURL);
 
 onMounted(() => {
+  document.addEventListener("click", function(evt) {
+        let projectEl = document.getElementById('form-project-selector'),
+          targetEl = evt.target; // clicked element
+          do {
+          if(targetEl == projectEl) {
+            // This is a click inside, does nothing, just return.
+            return;
+          }
+          // Go up the DOM
+          targetEl = targetEl.parentNode;
+        } while (targetEl);
+        // This is a click outside.
+        showProjectsList.value = false
+      });
   document.addEventListener("click", function(evt) {
         let groupEl = document.getElementById('group-selector'),
           targetEl = evt.target; // clicked element      
@@ -1070,7 +1191,7 @@ onMounted(() => {
           targetEl = targetEl.parentNode;
         } while (targetEl);
         // This is a click outside.
-        showProjectsList.value = false
+        showGroupsList.value = false
       });
 }
   );
