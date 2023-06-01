@@ -308,14 +308,13 @@
 </g>
       </svg></span>
     </div>
-    <div v-show="showProjectsList" class="absolute overflow-y-auto max-h-96 -right-2 top-0  flex flex-col gap-y-4 bg-white rounded-md p-4 text-black">
-      <div class="flex flex-col gap-y-2" v-for="(project, index) in projects" :key="project.id">
-        <button type="button" @click="setProject(project.id)">{{ project.name }}</button>
-        <hr :class="{ 'border-black': index + 1 === projects.length }">
+    <div v-show="showProjectsList" class="absolute overflow-y-auto max-h-96 w-3/5 top-12 z-10  flex flex-col bg-white rounded-md text-black">
+      <div @click="setProject(project.id)" class="hover:bg-slate-300 transition-colors py-4 cursor-pointer flex flex-col gap-y-2" v-for="(project) in projects" :key="project.id">
+        <button type="button">{{ project.name }}</button>
       </div>
-      <button type="button" class="text-center cursor-pointer" @click="navigateTo('/user-projects/add'); showProjectsList = false;">+ Add a project</button>
       <hr>
-      <button type="button" class="text-center cursor-pointer" @click="navigateTo('/user-projects'); showProjectsList = false;">View projects list</button>
+      <button type="button" class="text-center cursor-pointer py-4 hover:bg-slate-300" @click="navigateTo('/user-projects/add'); showProjectsList = false;">+ Add a project</button>
+      <button type="button" class="text-center cursor-pointer py-4 hover:bg-slate-300" @click="navigateTo('/user-projects'); showProjectsList = false;">View projects list</button>
     </div>
   </div>
 </div>
@@ -358,14 +357,13 @@
       </g>
                     </svg></span>
                   </div>
-                  <div v-show="showGroupsList" class="absolute overflow-y-auto max-h-96 -right-2 top-0  flex flex-col gap-y-4 bg-white rounded-md p-4 text-black">
-                    <div class="flex flex-col gap-y-2" v-for="(group, index) in groups" :key="group.id">
-                      <button type="button" @click="setGroup(group.id)">{{ group.name }}</button>
-                      <hr :class="{ 'border-black': index + 1 === groups.length }">
+                  <div v-show="showGroupsList" class="absolute overflow-y-auto max-h-96 top-12 z-10 w-3/5  flex flex-col bg-white rounded-md text-black">
+                    <div @click="setGroup(group.id)" class="hover:bg-slate-300 transition-colors py-4 flex cursor-pointer flex-col gap-y-2" v-for="(group) in groups" :key="group.id">
+                      <button type="button">{{ group.name }}</button>                      
                     </div>
-                    <button type="button" class="text-center cursor-pointer" @click="navigateTo('/user-groups/add'); showGroupsList = false;">+ Add a group</button>
                     <hr>
-                    <button type="button" class="text-center cursor-pointer" @click="navigateTo('/user-groups'); showGroupsList = false;">View groups list</button>
+                    <button type="button" class="text-center cursor-pointer py-4 hover:bg-slate-300" @click="navigateTo('/user-groups/add'); showGroupsList = false;">+ Add a group</button>
+                    <button type="button" class="text-center cursor-pointer py-4 hover:bg-slate-300" @click="navigateTo('/user-groups'); showGroupsList = false;">View groups list</button>
                   </div>
                 </div>
           </div>

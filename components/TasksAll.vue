@@ -326,20 +326,41 @@ const setClickDatas = async () => {
   // const { limit, itemid } = toRefs(props);
   let query = "";
   if (limit.value) {
-    query = `?limit=${limit.value}`;
+    query = `limit=${limit.value}`;
   }
   if (itemid.value) {
     query += `&itemid=${itemid.value}`;
   }
 
-  const { data: data } = await useFetch(
-    `${config.API_BASE_URL}tasks/all/${query}`
-  );
+  if (!localStorage.getItem('activeProject')) {
+    let timer = 0
+    const waitForActiveProject = setInterval(async () => {
+      if (localStorage.getItem('activeProject')) {
+        clearInterval(waitForActiveProject)
+        const { data: data } = await useFetch(
+          `${config.API_BASE_URL}tasks/all?${query}&projectId=${localStorage.getItem('activeProject')}`
+        );
 
-  clickdatas.value = data.value.data;
-  searchdatas.value = data.value.data;
-  clickdatasTotal.value = data.value.count;
+        clickdatas.value = data.value.data;
+        searchdatas.value = data.value.data;
+        clickdatasTotal.value = data.value.count;
 
+      } else {
+        timer += 1
+        if (timer / 10 > 5) {
+          clearInterval(waitForActiveProject)
+        }
+      }
+    }, 100)
+  } else {
+    const { data: data } = await useFetch(
+      `${config.API_BASE_URL}tasks/all?projectId=${localStorage.getItem('activeProject')}`
+    );
+
+    clickdatas.value = data.value.data;
+    searchdatas.value = data.value.data;
+    clickdatasTotal.value = data.value.count;
+  }
   if (id) {
     searched();
   }

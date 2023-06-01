@@ -87,7 +87,7 @@
             <tr
               class="border-b border-gray-700"
               v-for="clickdata in searchdatas"
-              key="clickdata.id"
+              :key="clickdata.id"
             >
               <td class="py-3 px-2">
                 <NuxtLink
@@ -291,16 +291,40 @@ const formatDate = (dateString, formatString) => {
 };
 
 const setClickDatas = async () => {
-  const { data: data } = await useFetch(
-    `${config.API_BASE_URL}information-items/all`
-  );
-  clickdatas.value = data.value.data;
-  searchdatas.value = data.value.data;
-  clickdatasTotal.value = data.value.count;
 
+  if (!localStorage.getItem('activeProject')) {
+    let timer = 0
+    const waitForActiveProject = setInterval(async () => {
+      if (localStorage.getItem('activeProject')) {
+        clearInterval(waitForActiveProject)
+        const { data: data } = await useFetch(
+          `${config.API_BASE_URL}information-items/all?projectId=${localStorage.getItem('activeProject')}`
+        );
+
+        clickdatas.value = data.value.data;
+        searchdatas.value = data.value.data;
+        clickdatasTotal.value = data.value.count;
+
+      } else {
+        timer += 1
+        if (timer / 10 > 5) {
+          clearInterval(waitForActiveProject)
+        }
+      }
+    }, 100)
+  } else {
+    const { data: data } = await useFetch(
+      `${config.API_BASE_URL}information-items/all?projectId=${localStorage.getItem('activeProject')}`
+    );
+
+    clickdatas.value = data.value.data;
+    searchdatas.value = data.value.data;
+    clickdatasTotal.value = data.value.count;
+  }
   if (id) {
     searched();
   }
+
 };
 
 const niceFrequencyDisplay = (n) => {
@@ -367,6 +391,7 @@ table tbody tr td,
 input {
   color: #000;
 }
+
 #information_items input.search {
   background: #ddd;
 }
