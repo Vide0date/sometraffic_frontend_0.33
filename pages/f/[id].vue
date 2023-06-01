@@ -92,6 +92,8 @@ if (params.id && params.id.length === 7) {
 onMounted(async () => {
     const screenWidth = screen.width;
     const screenHeight = screen.height;
+    console.log('screenHeight', screenHeight);
+    console.log('screenWidth', screenWidth);
     let network_speed = "";
     if (navigator.connection) {
       const connection = navigator.connection;
@@ -117,6 +119,6 @@ onMounted(async () => {
       .catch((error) => {
         console.log("Error useFetch: ", error);
       });
-  window.location.assign(destination.value);
+  // window.location.assign(destination.value);
 });
 </script>

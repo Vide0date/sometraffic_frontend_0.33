@@ -1,1 +1,0 @@
-import{a1 as t,F as r}from"./entry.da811395.js";const n=t(async(a,o)=>{if(typeof window<"u"){const e=localStorage.getItem("user");if(e==null&&e==null)return r("/");if(JSON.parse(e).userType!=="Administrator")return r("/dashboard")}});export{n as default};

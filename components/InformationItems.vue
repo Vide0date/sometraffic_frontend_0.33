@@ -172,7 +172,7 @@ const formatDate = (dateString, formatString) => {
 const setClickDatas = async () => {
   const { limit, itemid } = toRefs(props);
   const { data: data } = await useFetch(
-    `${config.API_BASE_URL}information-items/all?limit=${limit.value}&itemid=${itemid.value}`
+    `${config.API_BASE_URL}information-items/allByItemId?limit=${limit.value}&itemid=${itemid.value}`
   );
 
   clickdatas.value = data.value.data;
