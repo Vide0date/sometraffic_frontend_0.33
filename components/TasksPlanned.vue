@@ -355,7 +355,7 @@ const setClickDatas = async () => {
       if (localStorage.getItem('activeProject')) {
         clearInterval(waitForActiveProject)
         const { data: data } = await useFetch(
-          `${config.API_BASE_URL}tasks/all?${query}&projectId=${localStorage.getItem('activeProject')}&status=planned`
+          `${config.API_BASE_URL}tasks/allWithItemId?${query}&projectId=${localStorage.getItem('activeProject')}&status=planned`
         );
 
         clickdatas.value = data.value.data;
@@ -371,7 +371,7 @@ const setClickDatas = async () => {
     }, 100)
   } else {
     const { data: data } = await useFetch(
-      `${config.API_BASE_URL}tasks/all?projectId=${localStorage.getItem('activeProject')}&status=planned`
+      `${config.API_BASE_URL}tasks/allWithItemId?${query}&projectId=${localStorage.getItem('activeProject')}&status=planned`
     );
 
     clickdatas.value = data.value.data;

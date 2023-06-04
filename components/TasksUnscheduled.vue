@@ -349,14 +349,15 @@ const setClickDatas = async () => {
   if (itemid.value) {
     query += `&itemid=${itemid.value}`;
   }
-
+  
   if (!localStorage.getItem('activeProject')) {
+    console.log('query', query);
     let timer = 0
     const waitForActiveProject = setInterval(async () => {
       if (localStorage.getItem('activeProject')) {
         clearInterval(waitForActiveProject)
         const { data: data } = await useFetch(
-          `${config.API_BASE_URL}tasks/all?${query}&projectId=${localStorage.getItem('activeProject')}&status=unscheduled`
+          `${config.API_BASE_URL}tasks/allWithItemId?${query}&projectId=${localStorage.getItem('activeProject')}&status=unscheduled`
         );
 
         clickdatas.value = data.value.data;
@@ -372,7 +373,7 @@ const setClickDatas = async () => {
     }, 100)
   } else {
     const { data: data } = await useFetch(
-      `${config.API_BASE_URL}tasks/all?projectId=${localStorage.getItem('activeProject')}&status=unscheduled`
+      `${config.API_BASE_URL}tasks/allWithItemId?${query}&projectId=${localStorage.getItem('activeProject')}&status=unscheduled`
     );
 
     clickdatas.value = data.value.data;

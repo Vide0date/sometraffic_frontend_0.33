@@ -534,7 +534,7 @@ const _routes = [
     meta: __nuxt_page_meta$t,
     alias: (__nuxt_page_meta$t == null ? void 0 : __nuxt_page_meta$t.alias) || [],
     redirect: (__nuxt_page_meta$t == null ? void 0 : __nuxt_page_meta$t.redirect) || void 0,
-    component: () => import("./_nuxt/_id_-d3c6d676.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/_id_-1dd942b8.js").then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$s == null ? void 0 : __nuxt_page_meta$s.name) ?? "category-items-add",
@@ -705,7 +705,7 @@ const _routes = [
     meta: __nuxt_page_meta$a,
     alias: (__nuxt_page_meta$a == null ? void 0 : __nuxt_page_meta$a.alias) || [],
     redirect: (__nuxt_page_meta$a == null ? void 0 : __nuxt_page_meta$a.redirect) || void 0,
-    component: () => import("./_nuxt/index-1a3bd283.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/index-f2da4237.js").then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$9 == null ? void 0 : __nuxt_page_meta$9.name) ?? "test",
