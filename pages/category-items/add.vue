@@ -348,7 +348,7 @@
   <div class="basis-3/4">
     <div id="form-project-selector" class="relative text-sm">
     <div @click="showProjectsList = !showProjectsList" class="rounded-md cursor-pointer relative flex bg-[#bcbcbc] p-3 w-3/5 text-black">
-      <button type="button">{{ projects.length ? projects.find(project => project.id === form.project) ? projects.find(project => project.id === form.project).name : 'Select Project' : 'Select Project' }}</button>
+      <button class="font-medium" type="button">{{ projects.length ? projects.find(project => project.id === form.project) ? projects.find(project => project.id === form.project).name : 'Select Project' : 'Select Project' }}</button>
       <span :class="{ 'rotate-180': showProjectsList }" class="absolute right-3 top-1/2 -translate-y-1"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="24px" height="14px" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
 <g id="Rounded_Rectangle_33_copy_4_1_">
 
@@ -357,12 +357,12 @@
       </svg></span>
     </div>
     <div v-show="showProjectsList" class="absolute overflow-y-auto max-h-96 z-10 w-3/5 top-12  flex flex-col rounded-md text-black bg-[#bcbcbc]">
-      <div @click="setProject(project.id)" class="hover:bg-slate-300 transition-colors py-4 cursor-pointer flex flex-col gap-y-2" v-for="(project) in projects" :key="project.id">
+      <div @click="setProject(project.id)" class="font-medium hover:bg-slate-300 transition-colors py-4 cursor-pointer flex flex-col gap-y-2" v-for="(project) in projects" :key="project.id">
         <button type="button">{{ project.name }}</button>
       </div>
       <hr>
-      <button type="button" class="text-center cursor-pointer py-4 hover:bg-slate-300" @click="navigateTo('/user-projects/add'); showProjectsList = false;">+ Add a project</button>
-      <button type="button" class="text-center cursor-pointer py-4 hover:bg-slate-300" @click="navigateTo('/user-projects'); showProjectsList = false;">View projects list</button>
+      <button type="button" class="font-medium text-center cursor-pointer py-4 hover:bg-slate-300" @click="navigateTo('/user-projects/add'); showProjectsList = false;">+ Add a project</button>
+      <button type="button" class="font-medium text-center cursor-pointer py-4 hover:bg-slate-300" @click="navigateTo('/user-projects'); showProjectsList = false;">View projects list</button>
     </div>
   </div>
 </div>
@@ -430,7 +430,7 @@
                 <div class="basis-3/4">
                   <div id="group-selector" class="relative text-sm ">
                   <div @click="showGroupsList = !showGroupsList" class="rounded-md cursor-pointer relative flex bg-[#bcbcbc] p-3 w-3/5 text-black">
-                    <button type="button">{{ groups.length ? groups.find(group => group.id === form.group) ? groups.find(group => group.id === form.group).name : 'Select Group' : 'Select Group' }}</button>
+                    <button class="font-medium" type="button">{{ groups.length ? groups.find(group => group.id === form.group) ? groups.find(group => group.id === form.group).name : 'Select Group' : 'Select Group' }}</button>
                     <span :class="{ 'rotate-180': showGroupsList }" class="absolute right-3 top-1/2 -translate-y-1"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="24px" height="14px" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
       <g id="Rounded_Rectangle_33_copy_4_1_">
         <path d="M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937   c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937   c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z"/>
@@ -438,12 +438,12 @@
                     </svg></span>
                   </div>
                   <div v-show="showGroupsList" class="absolute overflow-y-auto max-h-96 z-10 top-12 w-3/5  flex flex-col bg-[#bcbcbc] rounded-md text-black">
-                    <div @click="setGroup(group.id)" class="hover:bg-slate-300 transition-colors py-4 cursor-pointer flex flex-col gap-y-2" v-for="(group) in groups" :key="group.id">
+                    <div @click="setGroup(group.id)" class="font-medium hover:bg-slate-300 transition-colors py-4 cursor-pointer flex flex-col gap-y-2" v-for="(group) in groups" :key="group.id">
                       <button type="button" @click="setGroup(group.id)">{{ group.name }}</button>
                     </div>
                     <hr>
-                    <button type="button" class="text-center cursor-pointer py-4 hover:bg-slate-300" @click="navigateTo('/user-groups/add'); showGroupsList = false;">+ Add a group</button>
-                    <button type="button" class="text-center cursor-pointer py-4 hover:bg-slate-300" @click="navigateTo('/user-groups'); showGroupsList = false;">View groups list</button>
+                    <button type="button" class="font-medium text-center cursor-pointer py-4 hover:bg-slate-300" @click="navigateTo('/user-groups/add'); showGroupsList = false;">+ Add a group</button>
+                    <button type="button" class="font-medium text-center cursor-pointer py-4 hover:bg-slate-300" @click="navigateTo('/user-groups'); showGroupsList = false;">View groups list</button>
                   </div>
                 </div>
               </div>

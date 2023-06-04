@@ -21,7 +21,6 @@
         class="border border-white border-solid bg-white/10 col-span-3 rounded-lg p-4"
       >
 
-        <h2 class="text-white-600 text-md mb-2"><TimeDisplay /></h2>
         <!-- <h2 class="text-white-600 text-md mb-2"><TimeDisplayZone timezone="America/New_York"/></h2> -->
 
         <!-- Profile dropdown -->
@@ -29,7 +28,7 @@
         <div>
           <NuxtLink
             to="/dashboard"
-            class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 hover:text-black hover:border hover:border-white hover:border-solid group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
+            class="flex flex-col space-y-2 md:space-y-0 md:flex-row items-center md:space-x-2 hover:bg-white/10 hover:text-black hover:border hover:border-white hover:border-solid group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
           >
             <div>
               <img
@@ -48,8 +47,37 @@
               </span>
             </div>
           </NuxtLink>
+          <div v-if="user.userType === 'Administrator' || user.userType === 'administrator'" class="flex text-white gap-x-4 items-center">
+              <h2 class="text-slate-300 text-md"><TimeDisplay /></h2>
+                          <NuxtLink
+            class="hover:bg-white/10  transition w-fit duration-150 ease-linear rounded-lg py-3 px-2 group"
+            to="/admin-settings"
+            >
+            <div
+            class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center"
+            >
+            <div>
+                <p
+                class="font-bold text-base lg:text-lg text-slate-200 leading-4"
+                >
+                Admin
+              </p>
+            </div>
+          </div>
+        </NuxtLink>
+
+                
+              <span class="text-center self-center  px-2 py-1 rounded-md transition-colors hover:bg-gray-200 bg-white cursor-pointer" @click="incrementJoinedGroups">
+               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="26px" width="26px" version="1.1" id="Layer_1" viewBox="0 0 227.656 227.656" xml:space="preserve">
+<g>
+ <path style="fill:#0071BC;" d="M172.52,4.759c1.467,0.321,2.704,1.375,2.613,3.392c-0.504,10.084-1.054,20.213-3.575,30.022   c0.321,2.75-1.375,5.958-4.538,5.546c-22.551-2.979-30.755,17.326-33.689,40.197c10.725,0.642,21.359,1.467,31.718,2.383   c1.925,0.183,2.979,1.513,3.208,2.979c0.55,0.367,1.054,0.917,1.283,1.742c1.833,5.959,1.879,12.65,2.017,18.884   c0.092,4.904,0.688,10.45-2.613,14.346c0.413,2.292-0.825,4.95-3.896,5.042c-11,0.137-22.138,0.321-33.322,0.413   c0,1.1,0,2.2-0.046,3.208c-0.779,29.93,0.504,59.768,0.183,89.652c-0.046,2.338-1.925,3.208-3.621,2.888   c-0.229,0.137-0.458,0.321-0.733,0.412c-5.638,1.788-12.009,1.513-17.875,1.696c-5.821,0.137-11.55,0.275-17.326-0.733   c-1.421,0.458-3.163,0-3.483-1.879c-5.179-29.609-4.308-60.868-4.171-90.844c0-1.879,0-3.758,0-5.638   c-9.121-0.596-18.196-1.513-27.134-2.796c-1.375-0.229-2.063-1.146-2.154-2.2c-3.3-2.2-2.521-7.975-2.567-11.596   c-0.138-7.792-1.008-16.821,1.237-24.338c0.229-0.779,0.779-1.283,1.467-1.65c0.412-0.458,1.008-0.779,1.833-0.871   c9.121-1.1,18.517-1.742,28.005-2.063c0.458-8.617,1.238-17.234,2.567-25.667c6.279-40.243,40.793-64.673,81.54-55.277   C171.145,2.421,172.107,3.521,172.52,4.759z"/>
+</g>
+</svg>
+             </span>
+               <span class="text-center self-center text-xl">{{joinedGroups}}</span>
+            </div>
             <div class="flex text-white">
-              <p v-if="user.userType === 'Administrator' || user.userType === 'administrator'" class="font-bold text-xl">Account</p>
+              <p v-if="user.userType === 'Administrator' || user.userType === 'administrator'" class="font-bold text-xl text-black">Account</p>
             </div>
             <div v-if="user.userType === 'Administrator' || user.userType === 'administrator'" class="flex mt-4">
                   <div class="basis-full  ">
@@ -63,18 +91,18 @@
                 </svg></span>
               </div>
               <div v-show="showAccountsList" class="absolute border w-full shadow-lg z-10 overflow-y-auto max-h-96 top-12  flex flex-col  bg-[#bcbcbc] rounded-md text-black">
-                <div @click="setAccount(account.id)" class="hover:bg-slate-300 transition-colors py-4 cursor-pointer flex flex-col gap-y-2" v-for="(account) in accounts" :key="account.id">
+                <div @click="setAccount(account.id)" class="font-medium hover:bg-slate-300 transition-colors py-4 cursor-pointer flex flex-col gap-y-2" v-for="(account) in accounts" :key="account.id">
                   <button type="button">{{ account.name }}</button>
                 </div>
                 <hr>
-                <button class="text-center cursor-pointer hover:bg-slate-300 transition-colors py-4" @click="navigateTo('/accounts/add'); showAccountsList = false;">+ Add an account</button>
-                <button class="text-center cursor-pointer hover:bg-slate-300 transition-colors py-4" @click="navigateTo('/accounts'); showAccountsList = false;">View accounts list</button>
+                <button class="font-medium text-center cursor-pointer hover:bg-slate-300 transition-colors py-4" @click="navigateTo('/accounts/add'); showAccountsList = false;">+ Add an account</button>
+                <button class="font-medium text-center cursor-pointer hover:bg-slate-300 transition-colors py-4" @click="navigateTo('/accounts'); showAccountsList = false;">View accounts list</button>
               </div>
             </div>
             </div>
                 </div>
                 <div v-if="user.userType === 'Administrator' || user.userType === 'administrator'" class="flex my-4 text-white">
-                  <p class="font-bold text-xl">Project</p>
+                  <p class="font-bold text-xl text-black">Project</p>
                 </div>
                 <div v-if="user.userType === 'Administrator' || user.userType === 'administrator'" id="project-selector" class="relative mb-8">
             <div @click="projects.length ? showProjectsList = !showProjectsList : navigateTo('/projects/add')" class="rounded-md cursor-pointer relative flex bg-[#bcbcbc] p-3 text-black">
@@ -86,26 +114,27 @@
 </svg></span>
             </div>
             <div v-show="showProjectsList" class="bg-[#bcbcbc] absolute w-full top-12  flex flex-col rounded-md text-black border">
-              <div @click="setActiveProject(project.id)" class="hover:bg-slate-300 transition-colors py-4 cursor-pointer flex flex-col gap-y-2" v-for="(project) in projects" :key="project.id">
+              <div @click="setActiveProject(project.id)" class="font-medium hover:bg-slate-300 transition-colors py-4 cursor-pointer flex flex-col gap-y-2" v-for="(project) in projects" :key="project.id">
                 <button>{{project.name}}</button>
               </div>
               <hr>
-              <button class="text-center cursor-pointer hover:bg-slate-300 transition-colors py-4" @click="navigateTo('/projects/add'); showProjectsList = false;">+ Add a project</button>
-              <button class="text-center cursor-pointer hover:bg-slate-300 transition-colors py-4" @click="navigateTo('/projects'); showProjectsList = false;">View projects</button>
+              <button class="font-medium text-center cursor-pointer hover:bg-slate-300 transition-colors py-4" @click="navigateTo('/projects/add'); showProjectsList = false;">+ Add a project</button>
+              <button class="font-medium text-center cursor-pointer hover:bg-slate-300 transition-colors py-4" @click="navigateTo('/projects'); showProjectsList = false;">View projects</button>
             </div>
             <!-- <hr class="border-black mt-8"> -->
-            <div class="flex text-white gap-x-4 mt-9 items-center">
-              <p class="font-bold text-xl">Joined groups</p>
+            <!-- <div class="flex text-white gap-x-4 mt-9 items-center">
+              <h2 class="text-slate-300 text-md"><TimeDisplay /></h2>
+              <p class="font-bold text-xl">Admin</p>
                 
-               <span class="text-center self-center text-xl">{{joinedGroups}}</span>
-               <span class="text-center self-center  px-2 py-1 rounded-md hover:bg-slate-200 hover:bg-opacity-10 cursor-pointer" @click="incrementJoinedGroups">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="26px" width="26px" version="1.1" id="Layer_1" viewBox="0 0 227.656 227.656" xml:space="preserve">
+              <span class="text-center self-center  px-2 py-1 rounded-md transition-colors hover:bg-gray-200 bg-white cursor-pointer" @click="incrementJoinedGroups">
+               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="26px" width="26px" version="1.1" id="Layer_1" viewBox="0 0 227.656 227.656" xml:space="preserve">
 <g>
-	<path style="fill:#0071BC;" d="M172.52,4.759c1.467,0.321,2.704,1.375,2.613,3.392c-0.504,10.084-1.054,20.213-3.575,30.022   c0.321,2.75-1.375,5.958-4.538,5.546c-22.551-2.979-30.755,17.326-33.689,40.197c10.725,0.642,21.359,1.467,31.718,2.383   c1.925,0.183,2.979,1.513,3.208,2.979c0.55,0.367,1.054,0.917,1.283,1.742c1.833,5.959,1.879,12.65,2.017,18.884   c0.092,4.904,0.688,10.45-2.613,14.346c0.413,2.292-0.825,4.95-3.896,5.042c-11,0.137-22.138,0.321-33.322,0.413   c0,1.1,0,2.2-0.046,3.208c-0.779,29.93,0.504,59.768,0.183,89.652c-0.046,2.338-1.925,3.208-3.621,2.888   c-0.229,0.137-0.458,0.321-0.733,0.412c-5.638,1.788-12.009,1.513-17.875,1.696c-5.821,0.137-11.55,0.275-17.326-0.733   c-1.421,0.458-3.163,0-3.483-1.879c-5.179-29.609-4.308-60.868-4.171-90.844c0-1.879,0-3.758,0-5.638   c-9.121-0.596-18.196-1.513-27.134-2.796c-1.375-0.229-2.063-1.146-2.154-2.2c-3.3-2.2-2.521-7.975-2.567-11.596   c-0.138-7.792-1.008-16.821,1.237-24.338c0.229-0.779,0.779-1.283,1.467-1.65c0.412-0.458,1.008-0.779,1.833-0.871   c9.121-1.1,18.517-1.742,28.005-2.063c0.458-8.617,1.238-17.234,2.567-25.667c6.279-40.243,40.793-64.673,81.54-55.277   C171.145,2.421,172.107,3.521,172.52,4.759z"/>
+ <path style="fill:#0071BC;" d="M172.52,4.759c1.467,0.321,2.704,1.375,2.613,3.392c-0.504,10.084-1.054,20.213-3.575,30.022   c0.321,2.75-1.375,5.958-4.538,5.546c-22.551-2.979-30.755,17.326-33.689,40.197c10.725,0.642,21.359,1.467,31.718,2.383   c1.925,0.183,2.979,1.513,3.208,2.979c0.55,0.367,1.054,0.917,1.283,1.742c1.833,5.959,1.879,12.65,2.017,18.884   c0.092,4.904,0.688,10.45-2.613,14.346c0.413,2.292-0.825,4.95-3.896,5.042c-11,0.137-22.138,0.321-33.322,0.413   c0,1.1,0,2.2-0.046,3.208c-0.779,29.93,0.504,59.768,0.183,89.652c-0.046,2.338-1.925,3.208-3.621,2.888   c-0.229,0.137-0.458,0.321-0.733,0.412c-5.638,1.788-12.009,1.513-17.875,1.696c-5.821,0.137-11.55,0.275-17.326-0.733   c-1.421,0.458-3.163,0-3.483-1.879c-5.179-29.609-4.308-60.868-4.171-90.844c0-1.879,0-3.758,0-5.638   c-9.121-0.596-18.196-1.513-27.134-2.796c-1.375-0.229-2.063-1.146-2.154-2.2c-3.3-2.2-2.521-7.975-2.567-11.596   c-0.138-7.792-1.008-16.821,1.237-24.338c0.229-0.779,0.779-1.283,1.467-1.65c0.412-0.458,1.008-0.779,1.833-0.871   c9.121-1.1,18.517-1.742,28.005-2.063c0.458-8.617,1.238-17.234,2.567-25.667c6.279-40.243,40.793-64.673,81.54-55.277   C171.145,2.421,172.107,3.521,172.52,4.759z"/>
 </g>
 </svg>
-              </span>
-            </div>
+             </span>
+               <span class="text-center self-center text-xl">{{joinedGroups}}</span>
+            </div> -->
           </div>
 
           <!-- <a
