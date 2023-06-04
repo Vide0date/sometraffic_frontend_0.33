@@ -1648,7 +1648,7 @@ const _wrapIf = (component, props, slots) => {
 };
 const layouts = {
   auth: () => import("./_nuxt/auth-61118b8b.js").then((m) => m.default || m),
-  default: () => import("./_nuxt/default-972e91e0.js").then((m) => m.default || m),
+  default: () => import("./_nuxt/default-84087d35.js").then((m) => m.default || m),
   front: () => import("./_nuxt/front-628b0a0e.js").then((m) => m.default || m),
   redirect: () => import("./_nuxt/redirect-0d23ffed.js").then((m) => m.default || m)
 };

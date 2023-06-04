@@ -1645,7 +1645,7 @@ const _wrapIf = (component, props, slots) => {
 };
 const layouts = {
   auth: () => import('./auth-61118b8b.mjs').then((m) => m.default || m),
-  default: () => import('./default-972e91e0.mjs').then((m) => m.default || m),
+  default: () => import('./default-84087d35.mjs').then((m) => m.default || m),
   front: () => import('./front-628b0a0e.mjs').then((m) => m.default || m),
   redirect: () => import('./redirect-0d23ffed.mjs').then((m) => m.default || m)
 };
