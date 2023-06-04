@@ -20,12 +20,7 @@
         id="menu"
         class="border border-white border-solid bg-white/10 col-span-3 rounded-lg p-4"
       >
-        <h1
-          class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-black via-black/50 to-transparent bg-clip-text text-transparent"
-        >
-          <NuxtLink to="/dashboard">Dashboard</NuxtLink
-          >
-        </h1>
+
         <h2 class="text-white-600 text-md mb-2"><TimeDisplay /></h2>
         <!-- <h2 class="text-white-600 text-md mb-2"><TimeDisplayZone timezone="America/New_York"/></h2> -->
 
@@ -59,22 +54,21 @@
             <div v-if="user.userType === 'Administrator' || user.userType === 'administrator'" class="flex mt-4">
                   <div class="basis-full  ">
                     <div id="account-selector" class="relative">
-              <div @click="showAccountsList = !showAccountsList" class="rounded-md cursor-pointer relative flex bg-white p-3  text-black">
-                <button type="button">{{ accounts.length ? accounts.find(account => account.id == activeAccount) ? accounts.find(account => account.id == activeAccount).name : 'select account' : '' }}</button>
+              <div @click="showAccountsList = !showAccountsList" class="rounded-md cursor-pointer relative flex bg-[#bcbcbc] p-3  text-black">
+                <button class="font-medium" type="button">{{ accounts.length ? accounts.find(account => account.id == activeAccount) ? accounts.find(account => account.id == activeAccount).name : 'select account' : '' }}</button>
                 <span :class="{ 'rotate-180': showAccountsList }" class="absolute right-3 top-1/2 -translate-y-1"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="24px" height="14px" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
   <g id="Rounded_Rectangle_33_copy_4_1_">
   	<path d="M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937   c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937   c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z"/>
   </g>
                 </svg></span>
               </div>
-              <div v-show="showAccountsList" class="absolute border w-full shadow-lg z-10 overflow-y-auto max-h-96 top-12  flex flex-col gap-y-4 bg-white rounded-md p-4 text-black">
-                <div class="flex flex-col gap-y-2" v-for="(account, index) in accounts" :key="account.id">
-                  <button type="button" @click="setAccount(account.id)">{{ account.name }}</button>
-                  <hr :class="{ 'border-black': index + 1 === accounts.length }">
+              <div v-show="showAccountsList" class="absolute border w-full shadow-lg z-10 overflow-y-auto max-h-96 top-12  flex flex-col  bg-[#bcbcbc] rounded-md text-black">
+                <div @click="setAccount(account.id)" class="hover:bg-slate-300 transition-colors py-4 cursor-pointer flex flex-col gap-y-2" v-for="(account) in accounts" :key="account.id">
+                  <button type="button">{{ account.name }}</button>
                 </div>
-                <button class="text-center cursor-pointer" @click="navigateTo('/accounts/add'); showAccountsList = false;">+ Add an account</button>
                 <hr>
-                <button class="text-center cursor-pointer" @click="navigateTo('/accounts'); showAccountsList = false;">View accounts list</button>
+                <button class="text-center cursor-pointer hover:bg-slate-300 transition-colors py-4" @click="navigateTo('/accounts/add'); showAccountsList = false;">+ Add an account</button>
+                <button class="text-center cursor-pointer hover:bg-slate-300 transition-colors py-4" @click="navigateTo('/accounts'); showAccountsList = false;">View accounts list</button>
               </div>
             </div>
             </div>
@@ -83,29 +77,34 @@
                   <p class="font-bold text-xl">Project</p>
                 </div>
                 <div v-if="user.userType === 'Administrator' || user.userType === 'administrator'" id="project-selector" class="relative mb-8">
-            <div @click="projects.length ? showProjectsList = !showProjectsList : navigateTo('/projects/add')" class="rounded-md cursor-pointer relative flex bg-white p-3 text-black">
-              <button>{{projects.length ? projects.find(project => project.id === parseInt(activeProject)).name : 'Create first project'}}</button>
+            <div @click="projects.length ? showProjectsList = !showProjectsList : navigateTo('/projects/add')" class="rounded-md cursor-pointer relative flex bg-[#bcbcbc] p-3 text-black">
+              <button class="font-medium">{{projects.length ? projects.find(project => project.id === parseInt(activeProject)).name : 'Create first project'}}</button>
               <span v-if="projects.length" :class="{'rotate-180':showProjectsList}" class="absolute right-3 top-1/2 -translate-y-1"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="24px" height="14px" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
                 <g id="Rounded_Rectangle_33_copy_4_1_">
                   <path d="M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937   c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937   c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z"/>
                 </g>
 </svg></span>
             </div>
-            <div v-show="showProjectsList" class="absolute w-full top-12  flex flex-col gap-y-4 bg-white rounded-md p-4 text-black">
-              <div class="flex flex-col gap-y-2" v-for="(project, index) in projects" :key="project.id">
-                <button @click="setActiveProject(project.id)">{{project.name}}</button>
-                <hr :class="{'border-black': index + 1 === projects.length}">
+            <div v-show="showProjectsList" class="bg-[#bcbcbc] absolute w-full top-12  flex flex-col rounded-md text-black border">
+              <div @click="setActiveProject(project.id)" class="hover:bg-slate-300 transition-colors py-4 cursor-pointer flex flex-col gap-y-2" v-for="(project) in projects" :key="project.id">
+                <button>{{project.name}}</button>
               </div>
-              <button class="text-center cursor-pointer" @click="navigateTo('/projects/add'); showProjectsList = false;">+ Add a project</button>
               <hr>
-              <button class="text-center cursor-pointer" @click="navigateTo('/projects'); showProjectsList = false;">View projects</button>
+              <button class="text-center cursor-pointer hover:bg-slate-300 transition-colors py-4" @click="navigateTo('/projects/add'); showProjectsList = false;">+ Add a project</button>
+              <button class="text-center cursor-pointer hover:bg-slate-300 transition-colors py-4" @click="navigateTo('/projects'); showProjectsList = false;">View projects</button>
             </div>
             <!-- <hr class="border-black mt-8"> -->
-            <div class="flex text-white gap-x-8 mt-9">
+            <div class="flex text-white gap-x-4 mt-9 items-center">
               <p class="font-bold text-xl">Joined groups</p>
                 
-               <span class="text-center self-center">{{joinedGroups}}</span>
-               <span class="text-center self-center bg-slate-500 px-4 py-2 rounded-md hover:bg-slate-800 cursor-pointer" @click="incrementJoinedGroups">+</span>
+               <span class="text-center self-center text-xl">{{joinedGroups}}</span>
+               <span class="text-center self-center  px-2 py-1 rounded-md hover:bg-slate-200 hover:bg-opacity-10 cursor-pointer" @click="incrementJoinedGroups">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="26px" width="26px" version="1.1" id="Layer_1" viewBox="0 0 227.656 227.656" xml:space="preserve">
+<g>
+	<path style="fill:#0071BC;" d="M172.52,4.759c1.467,0.321,2.704,1.375,2.613,3.392c-0.504,10.084-1.054,20.213-3.575,30.022   c0.321,2.75-1.375,5.958-4.538,5.546c-22.551-2.979-30.755,17.326-33.689,40.197c10.725,0.642,21.359,1.467,31.718,2.383   c1.925,0.183,2.979,1.513,3.208,2.979c0.55,0.367,1.054,0.917,1.283,1.742c1.833,5.959,1.879,12.65,2.017,18.884   c0.092,4.904,0.688,10.45-2.613,14.346c0.413,2.292-0.825,4.95-3.896,5.042c-11,0.137-22.138,0.321-33.322,0.413   c0,1.1,0,2.2-0.046,3.208c-0.779,29.93,0.504,59.768,0.183,89.652c-0.046,2.338-1.925,3.208-3.621,2.888   c-0.229,0.137-0.458,0.321-0.733,0.412c-5.638,1.788-12.009,1.513-17.875,1.696c-5.821,0.137-11.55,0.275-17.326-0.733   c-1.421,0.458-3.163,0-3.483-1.879c-5.179-29.609-4.308-60.868-4.171-90.844c0-1.879,0-3.758,0-5.638   c-9.121-0.596-18.196-1.513-27.134-2.796c-1.375-0.229-2.063-1.146-2.154-2.2c-3.3-2.2-2.521-7.975-2.567-11.596   c-0.138-7.792-1.008-16.821,1.237-24.338c0.229-0.779,0.779-1.283,1.467-1.65c0.412-0.458,1.008-0.779,1.833-0.871   c9.121-1.1,18.517-1.742,28.005-2.063c0.458-8.617,1.238-17.234,2.567-25.667c6.279-40.243,40.793-64.673,81.54-55.277   C171.145,2.421,172.107,3.521,172.52,4.759z"/>
+</g>
+</svg>
+              </span>
             </div>
           </div>
 

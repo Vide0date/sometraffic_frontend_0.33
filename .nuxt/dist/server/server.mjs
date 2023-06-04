@@ -534,7 +534,7 @@ const _routes = [
     meta: __nuxt_page_meta$t,
     alias: (__nuxt_page_meta$t == null ? void 0 : __nuxt_page_meta$t.alias) || [],
     redirect: (__nuxt_page_meta$t == null ? void 0 : __nuxt_page_meta$t.redirect) || void 0,
-    component: () => import("./_nuxt/_id_-d535e99d.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/_id_-02926c77.js").then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$s == null ? void 0 : __nuxt_page_meta$s.name) ?? "category-items-add",
@@ -543,7 +543,7 @@ const _routes = [
     meta: __nuxt_page_meta$s,
     alias: (__nuxt_page_meta$s == null ? void 0 : __nuxt_page_meta$s.alias) || [],
     redirect: (__nuxt_page_meta$s == null ? void 0 : __nuxt_page_meta$s.redirect) || void 0,
-    component: () => import("./_nuxt/add-24d30cf0.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/add-4f5784c5.js").then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$r == null ? void 0 : __nuxt_page_meta$r.name) ?? "category-items",
@@ -1648,7 +1648,7 @@ const _wrapIf = (component, props, slots) => {
 };
 const layouts = {
   auth: () => import("./_nuxt/auth-61118b8b.js").then((m) => m.default || m),
-  default: () => import("./_nuxt/default-62c6f99c.js").then((m) => m.default || m),
+  default: () => import("./_nuxt/default-c11e6d6c.js").then((m) => m.default || m),
   front: () => import("./_nuxt/front-628b0a0e.js").then((m) => m.default || m),
   redirect: () => import("./_nuxt/redirect-0d23ffed.js").then((m) => m.default || m)
 };
