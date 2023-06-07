@@ -293,7 +293,7 @@ const client_manifest = {
   "pages/accounts/[id].css": {
     "resourceType": "style",
     "file": "_id_.cd1a7ef4.css",
-    "src": "pages/projects/[id].css"
+    "src": "pages/user-groups/[id].css"
   },
   "pages/accounts/[id].vue": {
     "resourceType": "script",
@@ -589,7 +589,7 @@ const client_manifest = {
   "pages/projects/[id].css": {
     "resourceType": "style",
     "file": "_id_.cd1a7ef4.css",
-    "src": "pages/projects/[id].css"
+    "src": "pages/user-groups/[id].css"
   },
   "pages/projects/[id].vue": {
     "resourceType": "script",
@@ -795,7 +795,7 @@ const client_manifest = {
   "pages/user-groups/[id].css": {
     "resourceType": "style",
     "file": "_id_.cd1a7ef4.css",
-    "src": "pages/projects/[id].css"
+    "src": "pages/user-groups/[id].css"
   },
   "pages/user-groups/[id].vue": {
     "resourceType": "script",
