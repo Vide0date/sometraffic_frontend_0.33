@@ -119,6 +119,11 @@ onMounted(async () => {
       .catch((error) => {
         console.log("Error useFetch: ", error);
       });
-  window.location.assign(destination.value);
+      console.log('destination', destination.value);
+      if(destination.value !== ""){
+        window.location.assign(destination.value);
+      }else {
+        console.log('empty url');
+      }
 });
 </script>
