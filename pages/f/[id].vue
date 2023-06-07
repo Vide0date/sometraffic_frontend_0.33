@@ -59,6 +59,7 @@ if (params.id && params.id.length === 7) {
     })
       .then((result) => {
         if (result.data.value) {
+          console.log('get-meta result', result.data.value);
           redirect.value = result.data.value;
           destination.value = result.data.value[0].destination_url;
           if (
@@ -115,15 +116,34 @@ onMounted(async () => {
         network_speed,
         referrer_url: document.referrer,
       },
+    }).then((result) => {
+      if (result.data.value) {
+        console.log('redirect data', result.data.value);
+        let destination = result.data.value.destination_url;
+        console.log('destination before manipulation', destination);
+        if (!destination.includes("http") || !destination.includes("http")) {
+          destination = "https://" + destination;
+        }
+        console.log('destination after manipulation', destination);
+        
+        if(destination !== "")
+          window.location.assign(destination);
+        else
+          console.log('empty destination');
+      }
+      if (result.error.value) {
+        console.log("error value1", result.error.value.data.message);
+        AWN.alert(error);
+      }
     })
       .catch((error) => {
         console.log("Error useFetch: ", error);
       });
       console.log('destination', destination.value);
-      if(destination.value !== ""){
-        window.location.assign(destination.value);
-      }else {
-        console.log('empty url');
-      }
+      // if(destination.value !== ""){
+      //   window.location.assign(destination.value);
+      // }else {
+      //   console.log('empty url');
+      // }
 });
 </script>
