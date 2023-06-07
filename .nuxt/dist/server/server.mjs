@@ -229,7 +229,7 @@ function createHead(initHeadObject) {
   return legacyHead;
 }
 version.startsWith("2.");
-const appHead = { "meta": [{ "name": "viewport", "content": "width=device-width, initial-scale=1" }, { "charset": "utf-8" }, { "name": "description", "content": "SomeTraffic Nuxt App,  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi vero, rem dolorem voluptatem sapiente veritatis perspiciatis architecto iusto iste delectus natus ad ut a quisquam. Ad qui et debitis sequi." }, { "property": "fb:app_id", "content": "1477435389326991" }], "link": [], "style": [], "script": [], "noscript": [], "title": "SomeTraffic Global" };
+const appHead = { "meta": [{ "name": "viewport", "content": "width=device-width, initial-scale=1" }, { "charset": "utf-8" }, { "name": "description", "content": "SomeTraffic Nuxt App,  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi vero, rem dolorem voluptatem sapiente veritatis perspiciatis architecto iusto iste delectus natus ad ut a quisquam. Ad qui et debitis sequi." }, { "property": "fb:app_id", "content": "1477435389326991" }], "link": [{ "rel": "icon", "type": "image/x-icon", "href": "/favicon.png" }], "style": [], "script": [], "noscript": [], "title": "SomeTraffic Global" };
 const appLayoutTransition = false;
 const appPageTransition = false;
 const appKeepalive = false;
