@@ -293,7 +293,7 @@ export default {
   "pages/accounts/[id].css": {
     "resourceType": "style",
     "file": "_id_.cd1a7ef4.css",
-    "src": "pages/user-groups/[id].css"
+    "src": "pages/accounts/[id].css"
   },
   "pages/accounts/[id].vue": {
     "resourceType": "script",
@@ -589,7 +589,7 @@ export default {
   "pages/projects/[id].css": {
     "resourceType": "style",
     "file": "_id_.cd1a7ef4.css",
-    "src": "pages/user-groups/[id].css"
+    "src": "pages/accounts/[id].css"
   },
   "pages/projects/[id].vue": {
     "resourceType": "script",
@@ -795,7 +795,7 @@ export default {
   "pages/user-groups/[id].css": {
     "resourceType": "style",
     "file": "_id_.cd1a7ef4.css",
-    "src": "pages/user-groups/[id].css"
+    "src": "pages/accounts/[id].css"
   },
   "pages/user-groups/[id].vue": {
     "resourceType": "script",
