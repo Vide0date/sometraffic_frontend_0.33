@@ -31,11 +31,11 @@ export default defineNuxtConfig({
     ],
     app: {
         head: {
-            title: 'SomeTraffic Global',
+            title: 'Internet Link Global',
             meta: [
                 {
                     name: 'description',
-                    content: 'SomeTraffic Nuxt App,  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi vero, rem dolorem voluptatem sapiente veritatis perspiciatis architecto iusto iste delectus natus ad ut a quisquam. Ad qui et debitis sequi.'
+                    content: 'Internet link social media traffic tracking app'
                 },
                 { property: "fb:app_id", content: "1477435389326991" }
                 // { property: "og:title", content: 'SomeTraffic App' },

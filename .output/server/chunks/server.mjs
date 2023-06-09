@@ -228,7 +228,7 @@ function createHead(initHeadObject) {
   return legacyHead;
 }
 version.startsWith("2.");
-const appHead = { "meta": [{ "name": "viewport", "content": "width=device-width, initial-scale=1" }, { "charset": "utf-8" }, { "name": "description", "content": "SomeTraffic Nuxt App,  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi vero, rem dolorem voluptatem sapiente veritatis perspiciatis architecto iusto iste delectus natus ad ut a quisquam. Ad qui et debitis sequi." }, { "property": "fb:app_id", "content": "1477435389326991" }], "link": [{ "rel": "icon", "type": "image/x-icon", "href": "/favicon.png" }], "style": [], "script": [], "noscript": [], "title": "SomeTraffic Global" };
+const appHead = { "meta": [{ "name": "viewport", "content": "width=device-width, initial-scale=1" }, { "charset": "utf-8" }, { "name": "description", "content": "Internet link social media traffic tracking app" }, { "property": "fb:app_id", "content": "1477435389326991" }], "link": [{ "rel": "icon", "type": "image/x-icon", "href": "/favicon.png" }], "style": [], "script": [], "noscript": [], "title": "Internet Link Global" };
 const appLayoutTransition = false;
 const appPageTransition = false;
 const appKeepalive = false;
@@ -605,7 +605,7 @@ const _routes = [
     meta: __nuxt_page_meta$l,
     alias: (__nuxt_page_meta$l == null ? void 0 : __nuxt_page_meta$l.alias) || [],
     redirect: (__nuxt_page_meta$l == null ? void 0 : __nuxt_page_meta$l.redirect) || void 0,
-    component: () => import('./index-edc7e2d3.mjs').then((m) => m.default || m)
+    component: () => import('./index-f0f5eca0.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$k == null ? void 0 : __nuxt_page_meta$k.name) ?? "information-items-id",

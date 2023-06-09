@@ -21,7 +21,7 @@ definePageMeta({
                   </div>
                   <div class="rounded-lg p-4 w-screen">
                     <div class="pl-48 pt-48">
-                      <h2 class="text-4xl">Testing Sometraffic.com</h2>
+                      <h2 class="text-4xl">Internetl.ink</h2>
                       <h2 class="text-4xl">Social media traffic</h2>
                       <br />
                       <h2 class="text-4xl">Schedule and track your</h2>
