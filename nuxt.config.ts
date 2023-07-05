@@ -44,6 +44,9 @@ export default defineNuxtConfig({
                 // { property: "og:url", content: 'https://remotehub.ai' },
                 // { property: "og:type", content: 'Web Application Site' },
             ],
+            link: [
+                { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
+              ],
         },
     },
     runtimeConfig: {

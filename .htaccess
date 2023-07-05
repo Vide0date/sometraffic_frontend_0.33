@@ -1,9 +1,9 @@
 # redirect http to https
 RewriteEngine On
 RewriteCond %{SERVER_PORT} 80
-RewriteCond %{HTTP_HOST} ^sometraffic\.com$ [OR]
-RewriteCond %{HTTP_HOST} ^www\.sometraffic\.com$
-RewriteRule ^(.*)$ https://sometraffic.com$1 [R=301,L]
+RewriteCond %{HTTP_HOST} ^internetl\.ink$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.internetl\.ink$
+RewriteRule ^(.*)$ https://internetl.ink$1 [R=301,L]
 
 # for dynamic route
 RewriteEngine on
