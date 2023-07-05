@@ -92,7 +92,7 @@
               </td>
               <td class="py-3 px-2">{{ clickdata?.device }}</td>
               <td class="py-3 px-2">
-                {{ formatDate(clickdata?.timestamp, "YYYY-MM-DD H:m") }}
+                {{ formatDate(clickdata?.timestamp, "YYYY-MM-DD : HH:mm") }}
               </td>
               <td class="py-3 px-2">{{ clickdata?.country }}</td>
               <td class="py-3 px-2">{{ clickdata?.city }}</td>

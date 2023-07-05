@@ -1,1 +1,0 @@
-{"version":3,"file":"redirect-page-1030bfd2.js","sources":["../../../../pages/redirect-page.vue"],"sourcesContent":["<template>\r\n  <div></div>\r\n</template>\r\n  \r\n  <script>\r\nexport default {\r\n  layout: \"redirect\",\r\n};\r\n</script>"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;AAKA,MAAK,YAAU;AAAA,EACb,QAAQ;AACV;;;;;;;;;;;"}

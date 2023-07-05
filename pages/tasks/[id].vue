@@ -1198,7 +1198,7 @@ const form = reactive({
   email_notification: "",
   status: "",
   due_date: "",
-  due_time: "",
+  due_time: "09:00",
   url_1_txt: "",
   url_1_link: "",
   url_2_txt: "",
