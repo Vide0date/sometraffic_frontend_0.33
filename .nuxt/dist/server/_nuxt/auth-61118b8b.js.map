@@ -1,0 +1,1 @@
+{"version":3,"file":"auth-61118b8b.js","sources":["../../../../layouts/auth.vue"],"sourcesContent":["<template>\n    <div class=\"bg-[#848484]\">\n        <slot />\n    </div>\n</template>\n\n<script setup>\n    \n</script>\n\n<style  scoped>\n\n</style>"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;AACS,SAAA,eAAA,MAAA,OAAA,SAAA,QAAoB;;;;;;;;;;;;"}
