@@ -6144,15 +6144,15 @@ module.exports = {
   "content": {
     "relative": false,
     "files": [
-      "C:/Users/pavilion/Documents/Projects/Upwork projects/Otto/sometraffic_frontend_0.33/components/**/*.{vue,js,ts}",
-      "C:/Users/pavilion/Documents/Projects/Upwork projects/Otto/sometraffic_frontend_0.33/layouts/**/*.vue",
-      "C:/Users/pavilion/Documents/Projects/Upwork projects/Otto/sometraffic_frontend_0.33/pages/**/*.vue",
-      "C:/Users/pavilion/Documents/Projects/Upwork projects/Otto/sometraffic_frontend_0.33/composables/**/*.{js,ts}",
-      "C:/Users/pavilion/Documents/Projects/Upwork projects/Otto/sometraffic_frontend_0.33/plugins/**/*.{js,ts}",
-      "C:/Users/pavilion/Documents/Projects/Upwork projects/Otto/sometraffic_frontend_0.33/App.{js,ts,vue}",
-      "C:/Users/pavilion/Documents/Projects/Upwork projects/Otto/sometraffic_frontend_0.33/app.{js,ts,vue}",
-      "C:/Users/pavilion/Documents/Projects/Upwork projects/Otto/sometraffic_frontend_0.33/Error.{js,ts,vue}",
-      "C:/Users/pavilion/Documents/Projects/Upwork projects/Otto/sometraffic_frontend_0.33/error.{js,ts,vue}"
+      "/Users/maheshvagicherla/Downloads/upwork/sometraffic/sometraffic-frontend/components/**/*.{vue,js,ts}",
+      "/Users/maheshvagicherla/Downloads/upwork/sometraffic/sometraffic-frontend/layouts/**/*.vue",
+      "/Users/maheshvagicherla/Downloads/upwork/sometraffic/sometraffic-frontend/pages/**/*.vue",
+      "/Users/maheshvagicherla/Downloads/upwork/sometraffic/sometraffic-frontend/composables/**/*.{js,ts}",
+      "/Users/maheshvagicherla/Downloads/upwork/sometraffic/sometraffic-frontend/plugins/**/*.{js,ts}",
+      "/Users/maheshvagicherla/Downloads/upwork/sometraffic/sometraffic-frontend/App.{js,ts,vue}",
+      "/Users/maheshvagicherla/Downloads/upwork/sometraffic/sometraffic-frontend/app.{js,ts,vue}",
+      "/Users/maheshvagicherla/Downloads/upwork/sometraffic/sometraffic-frontend/Error.{js,ts,vue}",
+      "/Users/maheshvagicherla/Downloads/upwork/sometraffic/sometraffic-frontend/error.{js,ts,vue}"
     ],
     "extract": {},
     "transform": {}

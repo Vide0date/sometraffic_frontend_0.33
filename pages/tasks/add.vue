@@ -619,7 +619,9 @@
       </div>
 
       <form @submit.prevent="createTask">
-        <div class="border border-white border-solid overflow-hidden sm:rounded-md">
+        <div
+          class="border border-white border-solid overflow-hidden sm:rounded-md"
+        >
           <div class="px-4 py-5 sm:p-6">
             <div class="flex flex-row py-2">
               <div class="basis-1/3 px-1.5">
@@ -1167,7 +1169,7 @@ const form = reactive({
   email_notification: "off",
   status: status,
   due_date: "",
-  due_time: "",
+  due_time: "09:00",
   url_1_txt: "",
   url_1_link: "",
   url_2_txt: "",

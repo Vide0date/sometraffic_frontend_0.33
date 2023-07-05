@@ -106,6 +106,7 @@
                     class="outline-none"
                     type="text"
                     id="url_1_link"
+                    ref="input"
                     v-model="form.url_1_link"
                     v-on:change="checkUrl(form.url_1_link)"
                     v-on:keypress="setLoading(form.url_1_link)"
@@ -142,6 +143,31 @@
                       d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
                     />
                   </svg>
+
+                  <a
+                    :href="existingItemUrl"
+                    target="_blank"
+                    class="w-6 h-6 ml-2 text-blue-600 pt-2"
+                    style="display: inline-block"
+                    rel="noopener noreferrer"
+                    title="Open To New Tap"
+                    v-show="uniqueUrl === 'invalid'"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6 block"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                      />
+                    </svg>
+                  </a>
                   <!-- </a> -->
 
                   <img
@@ -190,7 +216,7 @@
                       @click="(event) => saveDefault(form.category)"
                       class="bg-[#bcbcbc] rounded-md border border-transparent py-1 px-4 text-sm font-medium text-black disabled:text-gray-500"
                     >
-                      Store as default
+                      as default
                     </button>
                     <svg
                       v-tooltip.right="{
@@ -251,68 +277,34 @@
               </div>
             </div>
 
-            <div class="col-span-12 mt-2">
-              <div class="flex items-center mb-2">
-                <input
-                  v-model="form.information"
-                  id="default-radio-1"
-                  type="radio"
-                  value="New found group, no strategy yet."
-                  name="default-radio"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label
-                  for="default-radio-1"
-                  class="ml-2 text-sm font-medium text-gray-700"
-                  >New found group, no strategy yet.</label
-                >
-              </div>
-              <div class="flex items-center">
-                <input
-                  v-model="form.information"
-                  id="default-radio-2"
-                  type="radio"
-                  value="This group is inactive, no actions needed."
-                  name="default-radio"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label
-                  for="default-radio-2"
-                  class="ml-2 text-sm font-medium text-gray-700"
-                  >This group is inactive, no actions needed.</label
-                >
-              </div>
-            </div>
-
             <div>
-              
               <div class="flex flex-row py-2 mt-4">
-  <div
-    class="basis-1/3 flex items-center text-sm font-medium text-gray-700"
-  >
-    Project
-    <svg
-      v-tooltip.right="{
-        content: `<div>You should try to create some projects to organise the Items in. When you get clicks, you can see how many clicks there were from specific projects created by you.<br />
+                <div
+                  class="basis-1/3 flex items-center text-sm font-medium text-gray-700"
+                >
+                  Project
+                  <svg
+                    v-tooltip.right="{
+                      content: `<div>You should try to create some projects to organise the Items in. When you get clicks, you can see how many clicks there were from specific projects created by you.<br />
             Example for remote working projects: Freelancers, Work from Home, Digital Nomad. You will learn over time what projects give you the most clicks per post. <br />
             We advise to use 4-6 projects per project.</div>`,
-        html: true,
-      }"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-      class="w-6 h-6 ml-2 text-gray-800"
-      style="display: inline-block"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
-      />
-    </svg>
-    <!-- <div
+                      html: true,
+                    }"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6 ml-2 text-gray-800"
+                    style="display: inline-block"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+                    />
+                  </svg>
+                  <!-- <div
       class="basis-1/2 flex items-center text-sm font-medium text-gray-700 pl-3"
     >
       <button
@@ -344,31 +336,90 @@
         />
       </svg>
     </div> -->
-  </div>
-  <div class="basis-3/4">
-    <div id="form-project-selector" class="relative text-sm">
-    <div @click="showProjectsList = !showProjectsList" class="rounded-md cursor-pointer relative flex bg-[#bcbcbc] p-3 w-3/5 text-black">
-      <button class="font-medium" type="button">{{ projects.length ? projects.find(project => project.id === form.project) ? projects.find(project => project.id === form.project).name : 'Select Project' : 'Select Project' }}</button>
-      <span :class="{ 'rotate-180': showProjectsList }" class="absolute right-3 top-1/2 -translate-y-1"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="24px" height="14px" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
-<g id="Rounded_Rectangle_33_copy_4_1_">
+                </div>
+                <div class="basis-3/4">
+                  <div id="form-project-selector" class="relative text-sm">
+                    <div
+                      @click="showProjectsList = !showProjectsList"
+                      class="rounded-md cursor-pointer relative flex bg-[#bcbcbc] p-3 w-3/5 text-black"
+                    >
+                      <button class="font-medium" type="button">
+                        {{
+                          projects.length
+                            ? projects.find(
+                                (project) => project.id === form.project
+                              )
+                              ? projects.find(
+                                  (project) => project.id === form.project
+                                ).name
+                              : "Select Project"
+                            : "Select Project"
+                        }}
+                      </button>
+                      <span
+                        :class="{ 'rotate-180': showProjectsList }"
+                        class="absolute right-3 top-1/2 -translate-y-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          version="1.1"
+                          id="Capa_1"
+                          x="0px"
+                          y="0px"
+                          width="24px"
+                          height="14px"
+                          viewBox="0 0 960 560"
+                          enable-background="new 0 0 960 560"
+                          xml:space="preserve"
+                        >
+                          <g id="Rounded_Rectangle_33_copy_4_1_">
+                            <path
+                              d="M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937   c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937   c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z"
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                    </div>
+                    <div
+                      v-show="showProjectsList"
+                      class="absolute overflow-y-auto max-h-96 z-10 w-3/5 top-12 flex flex-col rounded-md text-black bg-[#bcbcbc]"
+                    >
+                      <div
+                        @click="setProject(project.id)"
+                        class="font-medium hover:bg-slate-300 transition-colors py-4 cursor-pointer flex flex-col gap-y-2"
+                        v-for="project in projects"
+                        :key="project.id"
+                      >
+                        <button type="button">{{ project.name }}</button>
+                      </div>
+                      <hr />
+                      <button
+                        type="button"
+                        class="font-medium text-center cursor-pointer py-4 hover:bg-slate-300"
+                        @click="
+                          navigateTo('/user-projects/add');
+                          showProjectsList = false;
+                        "
+                      >
+                        + Add a project
+                      </button>
+                      <button
+                        type="button"
+                        class="font-medium text-center cursor-pointer py-4 hover:bg-slate-300"
+                        @click="
+                          navigateTo('/user-projects');
+                          showProjectsList = false;
+                        "
+                      >
+                        View projects list
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-<path d="M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937   c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937   c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z"/>
-</g>
-      </svg></span>
-    </div>
-    <div v-show="showProjectsList" class="absolute overflow-y-auto max-h-96 z-10 w-3/5 top-12  flex flex-col rounded-md text-black bg-[#bcbcbc]">
-      <div @click="setProject(project.id)" class="font-medium hover:bg-slate-300 transition-colors py-4 cursor-pointer flex flex-col gap-y-2" v-for="(project) in projects" :key="project.id">
-        <button type="button">{{ project.name }}</button>
-      </div>
-      <hr>
-      <button type="button" class="font-medium text-center cursor-pointer py-4 hover:bg-slate-300" @click="navigateTo('/user-projects/add'); showProjectsList = false;">+ Add a project</button>
-      <button type="button" class="font-medium text-center cursor-pointer py-4 hover:bg-slate-300" @click="navigateTo('/user-projects'); showProjectsList = false;">View projects list</button>
-    </div>
-  </div>
-</div>
-</div>
-
-              <div class="flex flex-row py-2 mt-4 ">
+              <div class="flex flex-row py-2 mt-4">
                 <div
                   class="basis-1/3 flex items-center text-sm font-medium text-gray-700"
                 >
@@ -403,7 +454,7 @@
                       @click="(event) => saveDefaultGroup(form.group)"
                       class="bg-[#bcbcbc] rounded-md border border-transparent py-1 px-4 text-sm font-medium text-black disabled:text-gray-500"
                     >
-                      Store as default
+                      as default
                     </button>
                     <svg
                       v-tooltip.right="{
@@ -428,25 +479,83 @@
                   </div>
                 </div>
                 <div class="basis-3/4">
-                  <div id="group-selector" class="relative text-sm ">
-                  <div @click="showGroupsList = !showGroupsList" class="rounded-md cursor-pointer relative flex bg-[#bcbcbc] p-3 w-3/5 text-black">
-                    <button class="font-medium" type="button">{{ groups.length ? groups.find(group => group.id === form.group) ? groups.find(group => group.id === form.group).name : 'Select Group' : 'Select Group' }}</button>
-                    <span :class="{ 'rotate-180': showGroupsList }" class="absolute right-3 top-1/2 -translate-y-1"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="24px" height="14px" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
-      <g id="Rounded_Rectangle_33_copy_4_1_">
-        <path d="M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937   c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937   c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z"/>
-      </g>
-                    </svg></span>
-                  </div>
-                  <div v-show="showGroupsList" class="absolute overflow-y-auto max-h-96 z-10 top-12 w-3/5  flex flex-col bg-[#bcbcbc] rounded-md text-black">
-                    <div @click="setGroup(group.id)" class="font-medium hover:bg-slate-300 transition-colors py-4 cursor-pointer flex flex-col gap-y-2" v-for="(group) in groups" :key="group.id">
-                      <button type="button" @click="setGroup(group.id)">{{ group.name }}</button>
+                  <div id="group-selector" class="relative text-sm">
+                    <div
+                      @click="showGroupsList = !showGroupsList"
+                      class="rounded-md cursor-pointer relative flex bg-[#bcbcbc] p-3 w-3/5 text-black"
+                    >
+                      <button class="font-medium" type="button">
+                        {{
+                          groups.length
+                            ? groups.find((group) => group.id === form.group)
+                              ? groups.find((group) => group.id === form.group)
+                                  .name
+                              : "Select Group"
+                            : "Select Group"
+                        }}
+                      </button>
+                      <span
+                        :class="{ 'rotate-180': showGroupsList }"
+                        class="absolute right-3 top-1/2 -translate-y-1"
+                        ><svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          version="1.1"
+                          id="Capa_1"
+                          x="0px"
+                          y="0px"
+                          width="24px"
+                          height="14px"
+                          viewBox="0 0 960 560"
+                          enable-background="new 0 0 960 560"
+                          xml:space="preserve"
+                        >
+                          <g id="Rounded_Rectangle_33_copy_4_1_">
+                            <path
+                              d="M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937   c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937   c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z"
+                            />
+                          </g>
+                        </svg>
+                      </span>
                     </div>
-                    <hr>
-                    <button type="button" class="font-medium text-center cursor-pointer py-4 hover:bg-slate-300" @click="navigateTo('/user-groups/add'); showGroupsList = false;">+ Add a group</button>
-                    <button type="button" class="font-medium text-center cursor-pointer py-4 hover:bg-slate-300" @click="navigateTo('/user-groups'); showGroupsList = false;">View groups list</button>
+                    <div
+                      v-show="showGroupsList"
+                      class="absolute overflow-y-auto max-h-96 z-10 top-12 w-3/5 flex flex-col bg-[#bcbcbc] rounded-md text-black"
+                    >
+                      <div
+                        @click="setGroup(group.id)"
+                        class="font-medium hover:bg-slate-300 transition-colors py-4 cursor-pointer flex flex-col gap-y-2"
+                        v-for="group in groups"
+                        :key="group.id"
+                      >
+                        <button type="button" @click="setGroup(group.id)">
+                          {{ group.name }}
+                        </button>
+                      </div>
+                      <hr />
+                      <button
+                        type="button"
+                        class="font-medium text-center cursor-pointer py-4 hover:bg-slate-300"
+                        @click="
+                          navigateTo('/user-groups/add');
+                          showGroupsList = false;
+                        "
+                      >
+                        + Add a group
+                      </button>
+                      <button
+                        type="button"
+                        class="font-medium text-center cursor-pointer py-4 hover:bg-slate-300"
+                        @click="
+                          navigateTo('/user-groups');
+                          showGroupsList = false;
+                        "
+                      >
+                        View groups list
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
               </div>
 
               <div class="flex flex-row py-2">
@@ -483,7 +592,7 @@
                       @click="(event) => saveDefaultPriority(form.priority)"
                       class="bg-[#bcbcbc] rounded-md border border-transparent py-1 px-4 text-sm font-medium text-black disabled:text-gray-500"
                     >
-                      Store as default
+                      as default
                     </button>
                     <svg
                       v-tooltip.right="{
@@ -885,7 +994,7 @@ input:checked ~ span:last-child {
 }
 
 .input-w-loading {
-  width: 90%;
+  width: 80%;
 }
 img.loading {
   width: 50px;
@@ -907,19 +1016,20 @@ const projects = ref([]);
 const groups = ref([]);
 const showProjectsList = ref(false);
 const showGroupsList = ref(false);
+const input = ref(null);
 
 const setGroup = (id) => {
   showGroupsList.value = false;
-  form.group = id
-}
+  form.group = id;
+};
 
 const setProject = async (id) => {
   showProjectsList.value = false;
-  form.project = id
-  await setGroups()
+  form.project = id;
+  await setGroups();
 
-  form.group = groups.value.length ? groups.value[0].id : null 
-}
+  form.group = groups.value.length ? groups.value[0].id : null;
+};
 
 // const defUser = JSON.parse(localStorage.getItem("user"));
 let defaultCategory = localStorage.getItem("sometraffic_default_category");
@@ -932,6 +1042,8 @@ let timestamp = new Date().toLocaleTimeString();
 
 const uniqueUrl = ref("");
 const isLoading = ref(false);
+
+const existingItemUrl = ref("");
 
 setInterval(() => {
   timestamp = new Date().toLocaleTimeString();
@@ -966,7 +1078,7 @@ const form = reactive({
   url_2_link: "",
   plan_frequency: null,
   automatic_status: null,
-  project: defaultProject ? defaultProject : null
+  project: defaultProject ? defaultProject : null,
 });
 
 const createCategoryItem = async () => {
@@ -1069,11 +1181,18 @@ const checkUrl = async (link) => {
   isLoading.value = true;
   if (isValidUrl(link)) {
     AWN.asyncBlock(
-      useFetch(`${config.API_BASE_URL}category-items/all/?url=${link}&accountId=${localStorage.getItem('activeAccount')}`),
+      useFetch(
+        `${
+          config.API_BASE_URL
+        }category-items/all/?url=${link}&accountId=${localStorage.getItem(
+          "activeAccount"
+        )}`
+      ),
       (resp) => {
         isLoading.value = false;
         if (resp.data && resp.data.value.length) {
           uniqueUrl.value = "invalid";
+          existingItemUrl.value = resp.data.value?.[0]?.unique_identifier;
         } else {
           uniqueUrl.value = "valid";
         }
@@ -1107,7 +1226,11 @@ const saveDefault = async (id) => {
 };
 const saveDefaultGroup = async (id) => {
   localStorage.setItem("sometraffic_default_group", id);
-  await AWN.success(`Standard group set to ${groups.value.find(group => group.id === id).name}.`);
+  await AWN.success(
+    `Standard group set to ${
+      groups.value.find((group) => group.id === id).name
+    }.`
+  );
 };
 const saveDefaultPriority = async (id) => {
   localStorage.setItem("sometraffic_default_priority", id);
@@ -1119,83 +1242,79 @@ const saveDefaultPriority = async (id) => {
 };
 
 const setGroups = async () => {
-  console.log('set groups');
-  if(!localStorage.getItem('activeProject')) {
-    let timer = 0
+  console.log("set groups");
+  if (!localStorage.getItem("activeProject")) {
+    let timer = 0;
     const waitForActiveProject = setInterval(async () => {
-      if (localStorage.getItem('activeProject')) {
-        clearInterval(waitForActiveProject)
-        const activeProject = parseInt(localStorage.getItem('activeProject'))
+      if (localStorage.getItem("activeProject")) {
+        clearInterval(waitForActiveProject);
+        const activeProject = parseInt(localStorage.getItem("activeProject"));
         const { data: data } = await useFetch(
           `${config.API_BASE_URL}groups/all?ProjectId=${form.project}`
         );
         groups.value = data.value;
-
       } else {
-        timer += 1
+        timer += 1;
         if (timer / 10 > 5) {
-          clearInterval(waitForActiveProject)
+          clearInterval(waitForActiveProject);
         }
       }
-    }, 100)
+    }, 100);
   } else {
     const { data: data } = await useFetch(
       `${config.API_BASE_URL}groups/all?ProjectId=${form.project}`
-      );
-      groups.value = data.value;
-      
-    }
-    const activeProject = parseInt(localStorage.getItem('activeProject'))
-  if(groups.value.length === 0 && form.project == activeProject){
-    navigateTo('/user-groups/add')
+    );
+    groups.value = data.value;
+  }
+  const activeProject = parseInt(localStorage.getItem("activeProject"));
+  if (groups.value.length === 0 && form.project == activeProject) {
+    navigateTo("/user-groups/add");
   }
 };
-const activeAccount = ref(
-  localStorage.getItem("activeAccount")
-)
+const activeAccount = ref(localStorage.getItem("activeAccount"));
 
 const setProjects = async () => {
   const { data: data } = await useFetch(
     `${config.API_BASE_URL}projects/all?AccountId=${activeAccount.value}`
-  )
-  projects.value = data.value
-}
+  );
+  projects.value = data.value;
+};
 
 onBeforeMount(setProjects);
 onBeforeMount(setGroups);
 onBeforeMount(getTrackingURL);
 
 onMounted(() => {
-  document.addEventListener("click", function(evt) {
-        let projectEl = document.getElementById('form-project-selector'),
-          targetEl = evt.target; // clicked element
-          do {
-          if(targetEl == projectEl) {
-            // This is a click inside, does nothing, just return.
-            return;
-          }
-          // Go up the DOM
-          targetEl = targetEl.parentNode;
-        } while (targetEl);
-        // This is a click outside.
-        showProjectsList.value = false
-      });
-  document.addEventListener("click", function(evt) {
-        let groupEl = document.getElementById('group-selector'),
-          targetEl = evt.target; // clicked element      
-        do {
-          if(targetEl == groupEl) {
-            // This is a click inside, does nothing, just return.
-            return;
-          }
-          // Go up the DOM
-          targetEl = targetEl.parentNode;
-        } while (targetEl);
-        // This is a click outside.
-        showGroupsList.value = false
-      });
-}
-  );
+  input.value.focus();
+  document.addEventListener("click", function (evt) {
+    let projectEl = document.getElementById("form-project-selector"),
+      targetEl = evt.target; // clicked element
+    do {
+      if (targetEl == projectEl) {
+        // This is a click inside, does nothing, just return.
+        return;
+      }
+      // Go up the DOM
+      targetEl = targetEl.parentNode;
+    } while (targetEl);
+    // This is a click outside.
+    showProjectsList.value = false;
+  });
+  document.addEventListener("click", function (evt) {
+    let groupEl = document.getElementById("group-selector"),
+      targetEl = evt.target; // clicked element
+    do {
+      if (targetEl == groupEl) {
+        // This is a click inside, does nothing, just return.
+        return;
+      }
+      // Go up the DOM
+      targetEl = targetEl.parentNode;
+    } while (targetEl);
+    // This is a click outside.
+    showGroupsList.value = false;
+  });
+});
 
 // onMounted(() => {
 //   document.addEventListener("keydown", (event) => {

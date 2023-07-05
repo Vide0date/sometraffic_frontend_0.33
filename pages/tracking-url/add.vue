@@ -72,7 +72,7 @@
                 </p> -->
               </div>
             </div>
-            
+
             <div class="flex flex-row py-2">
               <div
                 class="basis-1/5 flex items-center text-sm font-medium text-gray-700"
@@ -109,7 +109,12 @@
                 </label>
               </div>
               <div class="basis-1/3 px-1.5">
-                <a class="rounded-md bg-slate-500 text-white hover:bg-slate-700 transition-colors px-4 py-2 inline-block" href="https://developers.facebook.com/tools/debug" target="_blank" rel="noopener noreferrer">
+                <a
+                  class="rounded-md bg-slate-500 text-white hover:bg-slate-700 transition-colors px-4 py-2 inline-block"
+                  href="https://developers.facebook.com/tools/debug"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Debugger
                 </a>
               </div>
@@ -239,7 +244,7 @@
                     >
                       Tracking url title
                     </div>
-                    <div class="col-span-9 px-1.5">
+                    <div class="col-span-8 px-1.5">
                       <input
                         type="text"
                         v-model="form.seo_title"
@@ -247,6 +252,7 @@
                         class="bg-[#dddddd] h-10 py-2 px-3 text-gray-900 mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-gray-800 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
+                    <p class="col-span-1 mt-2 text-gray-900 text-xl">{{ form.seo_title.length }}</p>
                   </div>
                 </div>
                 <div class="col-span-12">
@@ -256,7 +262,7 @@
                     >
                       Tracking url description
                     </div>
-                    <div class="col-span-9 px-1.5">
+                    <div class="col-span-8 px-1.5">
                       <textarea
                         v-model="form.seo_description"
                         id="seo_description"
@@ -264,6 +270,7 @@
                         class="bg-[#dddddd] h-20 py-2 px-3 text-gray-900 mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-gray-800 focus:ring-indigo-500 sm:text-sm"
                       ></textarea>
                     </div>
+                    <p class="col-span-1 mt-2 text-gray-900 text-xl">{{ form.seo_description.length }}</p>
                   </div>
                 </div>
                 <div class="col-span-12">
