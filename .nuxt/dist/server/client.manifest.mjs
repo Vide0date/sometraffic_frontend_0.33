@@ -1,1 +1,0 @@
-export { default } from "file:///Users/maheshvagicherla/Downloads/upwork/sometraffic/sometraffic-frontend/node_modules/@nuxt/vite-builder/dist/runtime/client.manifest.mjs"
